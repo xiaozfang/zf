@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: project-01
+  aop:
+    proxy-target-class: true
+server:
+  port: 32022
