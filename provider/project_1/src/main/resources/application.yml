@@ -5,3 +5,8 @@ spring:
     proxy-target-class: true
 server:
   port: 32022
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:32011/eureka/
+    register-with-eureka: true
