@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: api-gateway
+
+server:
+  port: 32001
+# 单实例zuul配置
+zuul:
+  routes:
+    project-01:
+      path: /project-01/**
+      serviceId: project-01
+    project-02:
+       path: /project-02/**
+       serviceId: project-01
+    project-03:
+      path: /project-03/**
+      serviceId: project-01
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:32011/eureka/
+# 多实例zuul配置
+ribbon:
+  eureka:
+    enabled: false
+project-01:
+  ribbon:
+    listOfServers: http://localhost:32021/, http://localhost:32022/

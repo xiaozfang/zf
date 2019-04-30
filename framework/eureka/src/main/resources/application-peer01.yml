@@ -1,0 +1,15 @@
+server:
+  port: 32011
+eureka:
+  instance:
+    hostname: peer01
+  server:
+    enable-self-preservation: false
+  client:
+    service-url:
+      defaultZone: http://peer02:32012/eureka/
+
+
+spring:
+  application:
+    name: eureka-server
