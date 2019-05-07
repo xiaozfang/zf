@@ -20,10 +20,11 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:32011/eureka/
-# 多实例zuul配置
+# 多实例zuul配置 (自动负载均衡)
 ribbon:
   eureka:
     enabled: false
 project-01:
   ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #随机规则
     listOfServers: http://localhost:32021/, http://localhost:32022/
