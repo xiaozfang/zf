@@ -1,0 +1,5 @@
+server:
+  port: 32051
+spring:
+  profiles:
+    include: dao

@@ -1,15 +1,16 @@
-package com.xiao.project_1;
+package com.xiao.admin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
-@EnableEurekaClient
+
 @SpringBootApplication
 @ComponentScan(basePackages = "com.xiao")
-public class Project1Application {
+@EnableDiscoveryClient(autoRegister = false)
+public class AdminApplication {
     public static void main(String[] args) {
-        SpringApplication.run(Project1Application.class);
+        SpringApplication.run(AdminApplication.class, args);
     }
 }

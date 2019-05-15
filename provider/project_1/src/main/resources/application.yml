@@ -1,7 +1,13 @@
 spring:
+  profiles:
+    include: dao
   application:
     name: project-01
-
+  datasource:
+    url: jdbc:mysql://localhost/test?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
 server:
   port: 32022
 eureka:
