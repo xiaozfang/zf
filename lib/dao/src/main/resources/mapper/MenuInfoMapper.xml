@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiao.dao.mapper.MenuInfoMapper">
+    <resultMap id="BaseResultMap" type="com.xiao.dao.entity.MenuInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="menuid" jdbcType="INTEGER" property="menuid"/>
+        <result column="menuname" jdbcType="VARCHAR" property="menuname"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="parentid" jdbcType="INTEGER" property="parentid"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="deleted" jdbcType="INTEGER" property="deleted"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, menuid, menuname, level, parentid, url, deleted, createtime
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from menu_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from menu_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xiao.dao.entity.MenuInfo">
+    insert into menu_info (id, menuid, menuname, 
+      level, parentid, url, 
+      deleted, createtime)
+    values (#{id,jdbcType=INTEGER}, #{menuid,jdbcType=INTEGER}, #{menuname,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{parentid,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xiao.dao.entity.MenuInfo">
+        insert into menu_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="menuid != null">
+                menuid,
+            </if>
+            <if test="menuname != null">
+                menuname,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="parentid != null">
+                parentid,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="createtime != null">
+                createtime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="menuid != null">
+                #{menuid,jdbcType=INTEGER},
+            </if>
+            <if test="menuname != null">
+                #{menuname,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=INTEGER},
+            </if>
+            <if test="parentid != null">
+                #{parentid,jdbcType=INTEGER},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiao.dao.entity.MenuInfo">
+        update menu_info
+        <set>
+            <if test="menuid != null">
+                menuid = #{menuid,jdbcType=INTEGER},
+            </if>
+            <if test="menuname != null">
+                menuname = #{menuname,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=INTEGER},
+            </if>
+            <if test="parentid != null">
+                parentid = #{parentid,jdbcType=INTEGER},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xiao.dao.entity.MenuInfo">
+    update menu_info
+    set menuid = #{menuid,jdbcType=INTEGER},
+      menuname = #{menuname,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      parentid = #{parentid,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!--—————————————————————————————以下为新增方法——————————————————————————————————-->
+    <select id="list" resultType="com.xiao.dao.entity.MenuInfo">
+        select * from menu_info where deleted = 0
+        <if test="request.level != null and request.level != 0">
+            and level = #{request.level}
+        </if>
+        <if test="request.menuname != null and request.menuname != ''">
+            and menuname like concat('%',#{request.menuname},'%')
+        </if>
+    </select>
+</mapper>
