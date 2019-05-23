@@ -1,11 +1,10 @@
-package com.xiao.domain.common;
+package com.xiao.common.response;
 
+import com.xiao.common.response.vo.IResponseVO;
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
-public class ResponseBase implements Serializable {
+public class ResponseBase implements IResponseVO {
     private static final Long serialVersionUID = 1L;
 
     private int code;

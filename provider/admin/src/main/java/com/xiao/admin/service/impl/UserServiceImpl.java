@@ -3,8 +3,8 @@ package com.xiao.admin.service.impl;
 import com.xiao.admin.service.IUserService;
 import com.xiao.dao.entity.User;
 import com.xiao.dao.mapper.UserMapper;
-import com.xiao.domain.common.ResponseBase;
-import com.xiao.domain.common.ResponseDataBase;
+import com.xiao.common.response.ResponseBase;
+import com.xiao.common.response.ResponseDataBase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +12,12 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class UserServiceImpl implements IUserService {
+    private final UserMapper userMapper;
+
     @Autowired
-    private UserMapper userMapper;
+    public UserServiceImpl(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
 
     @Override

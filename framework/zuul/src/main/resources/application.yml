@@ -10,9 +10,9 @@ zuul:
     project-01:
       path: /project-01/**
       serviceId: project-01
-    project-02:
-       path: /project-02/**
-       serviceId: project-01
+    admin:
+      path: /admin/**
+      serviceId: admin
     project-03:
       path: /project-03/**
       serviceId: project-01

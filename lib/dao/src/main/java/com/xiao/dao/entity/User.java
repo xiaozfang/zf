@@ -3,10 +3,8 @@ package com.xiao.dao.entity;
 import lombok.Data;
 
 /**
- * 
- *
  * @author Aha
- * @date   2019-05-15
+ * @date 2019-05-15
  */
 
 @Data

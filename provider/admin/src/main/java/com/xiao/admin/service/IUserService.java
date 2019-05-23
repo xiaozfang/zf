@@ -1,8 +1,8 @@
 package com.xiao.admin.service;
 
 import com.xiao.dao.entity.User;
-import com.xiao.domain.common.ResponseBase;
-import com.xiao.domain.common.ResponseDataBase;
+import com.xiao.common.response.ResponseBase;
+import com.xiao.common.response.ResponseDataBase;
 
 public interface IUserService {
 

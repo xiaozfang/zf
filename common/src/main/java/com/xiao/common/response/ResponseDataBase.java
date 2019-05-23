@@ -1,8 +1,6 @@
-package com.xiao.domain.common;
+package com.xiao.common.response;
 
-import java.io.Serializable;
-
-public class ResponseDataBase<T> extends ResponseBase implements Serializable {
+public class ResponseDataBase<T> extends ResponseBase {
 
     private static final Long serialVersionUID = 1L;
 

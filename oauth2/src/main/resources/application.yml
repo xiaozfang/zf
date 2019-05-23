@@ -1,0 +1,18 @@
+server:
+  port: 32021
+
+spring:
+  application:
+    name: oauth
+  mvc:
+    static-path-pattern: /static/**
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    encoding: UTF-8
+    suffix: .html
+    mode: HTML
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:32011/eureka/

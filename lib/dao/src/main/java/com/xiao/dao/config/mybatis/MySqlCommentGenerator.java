@@ -41,7 +41,7 @@ public class MySqlCommentGenerator extends EntityCommentGenerator {
         topLevelClass.addJavaDocLine(" * " + remarks);
         topLevelClass.addJavaDocLine(" *");
         topLevelClass.addJavaDocLine(" * @author " + author);
-        topLevelClass.addJavaDocLine(" * @date   " + LocalDate.now());
+        topLevelClass.addJavaDocLine(" * @date " + LocalDate.now());
         topLevelClass.addJavaDocLine(" */");
         topLevelClass.addJavaDocLine("");
         topLevelClass.addJavaDocLine("@Data");

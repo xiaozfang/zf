@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>eureka</module>
-        <module>oauth2</module>
         <module>zuul</module>
     </modules>
 
