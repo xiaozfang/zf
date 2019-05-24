@@ -1,7 +1,9 @@
 package com.xiao.dao.mapper;
 
 import com.xiao.dao.entity.UserInfo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserInfoMapper {
     int deleteByPrimaryKey(Integer id);
 

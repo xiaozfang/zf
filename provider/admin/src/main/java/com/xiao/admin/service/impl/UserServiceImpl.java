@@ -1,10 +1,11 @@
 package com.xiao.admin.service.impl;
 
 import com.xiao.admin.service.IUserService;
-import com.xiao.dao.entity.User;
-import com.xiao.dao.mapper.UserMapper;
 import com.xiao.common.response.ResponseBase;
 import com.xiao.common.response.ResponseDataBase;
+import com.xiao.dao.entity.User;
+import com.xiao.dao.entity.UserInfo;
+import com.xiao.dao.mapper.UserInfoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,36 +13,34 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class UserServiceImpl implements IUserService {
-    private final UserMapper userMapper;
+    private final UserInfoMapper userInfoMapper;
 
     @Autowired
-    public UserServiceImpl(UserMapper userMapper) {
-        this.userMapper = userMapper;
+    public UserServiceImpl(UserInfoMapper userInfoMapper) {
+        this.userInfoMapper = userInfoMapper;
     }
 
 
     @Override
-    public ResponseDataBase<User> getUser(String userid) {
-        User user = userMapper.selectUserByUserid(userid);
-        log.info(user.toString());
+    public ResponseDataBase<UserInfo> getUser(String userid) {
         return null;
     }
 
     @Override
-    public ResponseBase addUser(User user) {
-        userMapper.insert(user);
+    public ResponseBase addUser(UserInfo user) {
+        userInfoMapper.insertSelective(user);
         return null;
     }
 
     @Override
-    public ResponseBase editUser(User user) {
-        userMapper.Update(user);
+    public ResponseBase editUser(UserInfo user) {
+        userInfoMapper.updateByPrimaryKey(user);
         return null;
     }
 
     @Override
     public ResponseBase deleteUser(String userid) {
-        User user = userMapper.deleteByUserid(userid);
+//        User user = userInfoMapper.deleteByPrimaryKey(userid);
         return null;
     }
 }

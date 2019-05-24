@@ -1,16 +1,16 @@
 package com.xiao.admin.service;
 
-import com.xiao.dao.entity.User;
 import com.xiao.common.response.ResponseBase;
 import com.xiao.common.response.ResponseDataBase;
+import com.xiao.dao.entity.UserInfo;
 
 public interface IUserService {
 
-    ResponseDataBase<User> getUser(String userid);
+    ResponseDataBase<UserInfo> getUser(String userid);
 
-    ResponseBase addUser(User user);
+    ResponseBase addUser(UserInfo user);
 
-    ResponseBase editUser(User user);
+    ResponseBase editUser(UserInfo user);
 
     ResponseBase deleteUser(String userid);
 
