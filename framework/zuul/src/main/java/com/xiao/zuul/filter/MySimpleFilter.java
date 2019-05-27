@@ -4,8 +4,11 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.support.HttpRequestHandlerServlet;
 
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @Configuration
@@ -40,14 +43,14 @@ public class MySimpleFilter extends ZuulFilter {
         HttpServletRequest request = context.getRequest();
         log.info("send {} request to{}", request.getMethod () ,request.getRequestURL().toString());
         Object accessToken = request.getParameter("access_token");
-        if (accessToken == null){
-            log.warn("access_token 为空");
-            context.setSendZuulResponse(false);
-            context.setResponseStatusCode(401);
-            context.getResponse().setContentType("text/html;charset=UTF-8");
-            context.setResponseBody("权限为空，请先<a href='http://www.baidu.com'>登录</a>");
-            return null;
-        }
+//        if (accessToken == null){
+//            log.warn("access_token 为空");
+//            context.setSendZuulResponse(false);
+//            context.setResponseStatusCode(401);
+//            context.getResponse().setContentType("text/html;charset=UTF-8");
+//            context.setResponseBody("权限为空，请先<a href='http://www.baidu.com'>登录</a>");
+//            return null;
+//        }
         log.info("access_token ok");
         context.setSendZuulResponse(true);
         context.setResponseStatusCode(200);

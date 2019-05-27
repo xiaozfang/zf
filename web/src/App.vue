@@ -1,13 +1,22 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <el-container>
+      <el-header>Header</el-header>
+      <el-container>
+        <el-aside width="400px"><navmenu></navmenu></el-aside>
+        <el-main>Main</el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script>
+import NavMenu from '@/components/NavMenu'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    'navmenu': NavMenu
+  }
 }
 </script>
 
