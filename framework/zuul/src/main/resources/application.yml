@@ -11,8 +11,8 @@ zuul:
       path: /project-01/**
       serviceId: project-01
     admin:
-      path: /admin/**
-      serviceId: admin
+      path: /usercenter/**
+      serviceId: usercenter
     project-03:
       path: /project-03/**
       serviceId: project-01

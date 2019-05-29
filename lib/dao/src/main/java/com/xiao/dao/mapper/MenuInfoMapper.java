@@ -1,7 +1,8 @@
 package com.xiao.dao.mapper;
 
 import com.xiao.dao.entity.MenuInfo;
-import com.xiao.domain.admin.request.MenuSearchRequest;
+import com.xiao.domain.usercenter.request.MenuBaseInfo;
+import com.xiao.domain.usercenter.request.MenuSearchRequest;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -26,5 +27,5 @@ public interface MenuInfoMapper {
     /**
      * 根据条件查询菜单列表
      */
-    List<MenuInfo> list(@Param("request") MenuSearchRequest request);
+    List<MenuBaseInfo> list(@Param("request") MenuSearchRequest request);
 }

@@ -1,8 +1,8 @@
 package com.xiao.dao.entity;
 
-import java.util.Date;
-
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 
@@ -14,32 +14,27 @@ import lombok.Data;
 @Data
 public class MenuInfo {
     /**
-     * 
+     * 菜单id
      */
     private Integer id;
 
     /**
-     * 
-     */
-    private Integer menuid;
-
-    /**
-     * 
+     * 菜单名字
      */
     private String menuname;
 
     /**
-     * 
+     * 菜单等级
      */
     private Integer level;
 
     /**
-     * 
+     * 父菜单id
      */
     private Integer parentid;
 
     /**
-     * 
+     * 跳转url
      */
     private String url;
 

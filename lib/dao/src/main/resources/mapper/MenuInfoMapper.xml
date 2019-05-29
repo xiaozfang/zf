@@ -3,7 +3,6 @@
 <mapper namespace="com.xiao.dao.mapper.MenuInfoMapper">
     <resultMap id="BaseResultMap" type="com.xiao.dao.entity.MenuInfo">
         <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="menuid" jdbcType="INTEGER" property="menuid"/>
         <result column="menuname" jdbcType="VARCHAR" property="menuname"/>
         <result column="level" jdbcType="INTEGER" property="level"/>
         <result column="parentid" jdbcType="INTEGER" property="parentid"/>
@@ -12,7 +11,7 @@
         <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, menuid, menuname, level, parentid, url, deleted, createtime
+    id, menuname, level, parentid, url, deleted, createtime
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -25,10 +24,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.xiao.dao.entity.MenuInfo">
-    insert into menu_info (id, menuid, menuname, 
+    insert into menu_info (id, menuname,
       level, parentid, url, 
       deleted, createtime)
-    values (#{id,jdbcType=INTEGER}, #{menuid,jdbcType=INTEGER}, #{menuname,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{menuname,jdbcType=VARCHAR},
       #{level,jdbcType=INTEGER}, #{parentid,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
       #{deleted,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
@@ -37,9 +36,6 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
-            </if>
-            <if test="menuid != null">
-                menuid,
             </if>
             <if test="menuname != null">
                 menuname,
@@ -64,9 +60,6 @@
             <if test="id != null">
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="menuid != null">
-                #{menuid,jdbcType=INTEGER},
-            </if>
             <if test="menuname != null">
                 #{menuname,jdbcType=VARCHAR},
             </if>
@@ -90,9 +83,6 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.xiao.dao.entity.MenuInfo">
         update menu_info
         <set>
-            <if test="menuid != null">
-                menuid = #{menuid,jdbcType=INTEGER},
-            </if>
             <if test="menuname != null">
                 menuname = #{menuname,jdbcType=VARCHAR},
             </if>
@@ -127,8 +117,8 @@
   </update>
 
     <!--—————————————————————————————以下为新增方法——————————————————————————————————-->
-    <select id="list" resultType="com.xiao.dao.entity.MenuInfo">
-        select * from menu_info where deleted = 0
+    <select id="list" resultType="com.xiao.domain.usercenter.request.MenuBaseInfo">
+        select id, menuname, level, parentid, url from menu_info where deleted = 0
         <if test="request.level != null and request.level != 0">
             and level = #{request.level}
         </if>

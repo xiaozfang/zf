@@ -1,6 +1,7 @@
 package com.xiao.zuul;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +13,9 @@ import org.springframework.web.filter.CorsFilter;
 @SpringCloudApplication
 public class ZuulApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ZuulApplication.class);
+        SpringApplication.run(ZuulApplication.class, args);
     }
+
     @Bean
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -24,6 +26,8 @@ public class ZuulApplication {
         config.addAllowedOrigin("*");
         //允许访问的头信息,*表示全部
         config.addAllowedHeader("*");
+        config.setMaxAge(3600L);
+        config.addExposedHeader("Authorization");
         //允许的method
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("GET");
