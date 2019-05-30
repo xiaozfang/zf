@@ -1,10 +1,9 @@
 package com.xiao.usercenter.controller;
 
+import com.xiao.database.config.annotation.TargetDataSource;
 import com.xiao.usercenter.service.IUserService;
 import com.xiao.common.response.ResponseBase;
 import com.xiao.common.response.ResponseDataBase;
-import com.xiao.dao.config.datasource.DataSourceTypes;
-import com.xiao.dao.config.datasource.annotation.TargetDataSource;
 import com.xiao.dao.entity.UserInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,9 +35,9 @@ public class UserController {
 
     @GetMapping("/test")
     @ApiOperation("用户测试接口")
-    @TargetDataSource(DataSourceTypes.SECOND)
+    @TargetDataSource("second")
     public ResponseDataBase<UserInfo> getUserFromTest() {
-        return null;
+        return userService.getUser("");
     }
 
     @PostMapping("/create")

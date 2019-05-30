@@ -22,6 +22,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ResponseDataBase<UserInfo> getUser(String userid) {
+
+        log.info(userInfoMapper.test(userid));
         return null;
     }
 

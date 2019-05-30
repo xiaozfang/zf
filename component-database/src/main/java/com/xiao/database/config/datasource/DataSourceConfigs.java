@@ -1,4 +1,4 @@
-//package com.xiao.dao.config.datasource;
+//package com.xiao.database.config.datasource;
 //
 //import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 //import org.apache.ibatis.session.SqlSessionFactory;

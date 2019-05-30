@@ -1,6 +1,7 @@
 package com.xiao.project_1.controller;
 
 
+import com.xiao.database.config.annotation.TargetDataSource;
 import com.xiao.project_1.service.IRegisterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,13 @@ public class RegisterController {
 
     @GetMapping("/add")
     public String register(String name) {
+        log.info("注册信息: " + name);
+        return registerService.register(1, "HelloWorld");
+    }
+
+    @GetMapping("/test")
+    @TargetDataSource("second")
+    public String test(String name) {
         log.info("注册信息: " + name);
         return registerService.register(1, "HelloWorld");
     }

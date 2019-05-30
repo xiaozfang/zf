@@ -7,6 +7,6 @@ public class StringTools {
      * 判断是否为"",null," "
      */
     public static boolean isEmptyOrNull(String s) {
-        return StringUtils.isEmpty(s) && StringUtils.isBlank(s) && StringUtils.isAllBlank(s) && StringUtils.isAllEmpty(s);
+        return StringUtils.isEmpty(s) || StringUtils.isBlank(s) || StringUtils.isAllBlank(s) || StringUtils.isAllEmpty(s);
     }
 }
