@@ -6,16 +6,20 @@ import com.xiao.zuul.dao.UserDao;
 import com.xiao.zuul.domain.LoginFrom;
 import com.xiao.zuul.pojo.UserInfo;
 import com.xiao.zuul.util.JwtUtils;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,18 +34,14 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@RequestBody LoginFrom loginFrom, HttpServletResponse response) {
-        // 1 获取当前登录人的信息
-        UserInfo userInfo;
-        Object obj = redisService.get(loginFrom.getUsername());
-        if (obj != null){
-            userInfo = (UserInfo) obj;
-            log.info("命中缓存" + userInfo.toString());
-        } else {
-            userInfo = userDao.getUserByName(loginFrom.getUsername());
-            if (userInfo != null){
-                redisService.set(loginFrom.getUsername(), userInfo);
-                log.info("缓存" + userInfo.toString());
-            }
+        String username = loginFrom.getUsername();
+        String password = loginFrom.getPassword();
+
+        UserInfo userInfo = userDao.getUserByName(username);
+        //获取当前登录人的信息 ，如果当前登录人在黑名单中，移除
+        if (redisService.get("logout_" + username) == null) {
+            redisService.del("logout_" + username);
+            log.info("移除黑名单:" + username);
         }
         Map<String, Object> map = new HashMap<>();
         // 2 生成jwt
@@ -53,9 +53,21 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String logout() {
-
-        return "login";
+    public String logout(@RequestParam String username, HttpServletRequest request) {
+        Claims claims = JwtUtils.JWTDecode(request.getHeader("Authorization"));
+        if (claims == null){
+            log.info("用户未登录，或签名已失效");
+            return "用户未登录，或签名已失效";
+        } else {
+            long ttl = claims.getExpiration().getTime();
+            long now = new Date().getTime();
+            if (now - ttl > 0){
+                //维持一个黑名单，当用户调用这个接口的时候，将用户加入黑名单，等待签名过期
+                redisService.set("logout_" + username,username, now - ttl);
+            }
+            log.info("退出登录成功");
+            return "退出登录成功！";
+        }
     }
 
     @RequestMapping("/home")
