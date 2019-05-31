@@ -16,10 +16,10 @@
         <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
 
         <!--不生成getter setter-->
-        <plugin type="com.xiao.dao.config.mybatis.NoGetterAndSetterPlugin" />
+        <plugin type="com.xiao.dao.config.NoGetterAndSetterPlugin" />
 
         <!-- 自定义注释生成器 -->
-        <commentGenerator type="com.xiao.dao.config.mybatis.MySqlCommentGenerator">
+        <commentGenerator type="com.xiao.dao.config.MySqlCommentGenerator">
             <property name="author" value="Aha"/>
         </commentGenerator>
 
@@ -36,23 +36,23 @@
         </javaTypeResolver>
 
         <!-- 数据表对应的model层  -->
-        <javaModelGenerator targetPackage="com.xiao.dao.entity" targetProject="lib\dao\src\main\java">
+        <javaModelGenerator targetPackage="com.xiao.dao.entity" targetProject="project\lib\dao\src\main\java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!-- sql mapper 映射配置文件 -->
-        <sqlMapGenerator targetPackage="mapper" targetProject="lib\dao\src\main\resources">
+        <sqlMapGenerator targetPackage="mapper" targetProject="project\lib\dao\src\main\resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!-- mybatis3中的mapper接口 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.xiao.dao.mapper" targetProject="lib\dao\src\main\java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.xiao.dao.mapper" targetProject="project\lib\dao\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <!-- 数据表进行生成操作 schema:相当于库名; tableName:表名; domainObjectName:对应的DO -->
-        <table schema="zf" tableName="user_role_info" domainObjectName="UserRoleInfo"
+        <table schema="zf" tableName="task_config" domainObjectName="TaskConfig"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

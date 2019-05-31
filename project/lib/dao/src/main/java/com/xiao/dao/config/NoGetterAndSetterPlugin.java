@@ -1,4 +1,4 @@
-package com.xiao.dao.config.mybatis;
+package com.xiao.dao.config;
 
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;

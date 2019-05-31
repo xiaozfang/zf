@@ -43,8 +43,8 @@ public class DynamicDataSourceInit {
         for (Map.Entry<String, Object> entry : json.entrySet()) {
             DataSource db = buildDataSource(entry);
             // 将多个数据源放入选择器中
-            targetDataSources.put(entry.getKey(), db);
-            if (DEFAULT_DB.equals(entry.getKey())) {
+            targetDataSources.put(entry.getKey().toLowerCase(), db);
+            if (DEFAULT_DB.equals(entry.getKey().toLowerCase())) {
                 // 默认的datasource设置为dataSourceDB1
                 dataSource.setDefaultTargetDataSource(db);
                 log.info("设置默认数据源：" + entry.getKey());
@@ -56,6 +56,8 @@ public class DynamicDataSourceInit {
 
     private DataSource buildDataSource(Map.Entry<String, Object> dbconfig) {
         DbItem item = JSONObject.parseObject(dbconfig.getValue().toString(), DbItem.class);
+
+        // 现在使用的是Druid连接池，如果使用HikariCP连接池，则设置type(HikariDataSource.class)，并进行相关设置
         DruidDataSource db = DataSourceBuilder.create()
                 .url(item.getUrl())
                 .driverClassName(item.getDriverName())
@@ -91,16 +93,16 @@ public class DynamicDataSourceInit {
             // 2.destroyThread检查的间隔时间（为什么这两个会用一个时间，大概是testWhileIdle进行主动检测后，
             //   destroy的间隔就没必要小于这个时间了。destroy 依赖 min/mixEvictableIdleTimeMillis 时间进行链接驱逐)
             db.setTimeBetweenEvictionRunsMillis(60 * 1000);
-
             //配置一个连接在池中最小生存的时间，单位是毫秒
             db.setMinEvictableIdleTimeMillis(300 * 1000);
 
             //连接检查超时，如果执行检查sql超过这个时间认为失败
             db.setValidationQueryTimeout(2000);
-            db.removeAbandoned();
+
             db.setLogAbandoned(true);
             db.setRemoveAbandoned(true);
-            db.setRemoveAbandonedTimeout(180);
+            // 连接池为了防止程序从池里取得连接后忘记归还的情况, 而提供了一些参数来设置一个租期,
+            // 意思是通过datasource.getConnontion() 取得的连接必须在removeAbandonedTimeout这么多秒内调用close()
             db.setRemoveAbandonedTimeoutMillis(180 * 1000);
         }
         log.info("初始化数据源：" + dbconfig.getKey());

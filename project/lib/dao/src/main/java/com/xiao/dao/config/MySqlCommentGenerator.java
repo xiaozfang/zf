@@ -1,4 +1,4 @@
-package com.xiao.dao.config.mybatis;
+package com.xiao.dao.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.generator.api.IntrospectedColumn;
