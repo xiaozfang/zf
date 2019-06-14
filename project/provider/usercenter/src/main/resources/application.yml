@@ -3,12 +3,13 @@ server:
 spring:
   application:
     name: usercenter
+  profiles:
+    active: dev
+
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:32011/eureka/,http://localhost:32012/eureka/
 
-
-logging:
-  level:
-    com.xiao.dao.mapper: DEBUG
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml

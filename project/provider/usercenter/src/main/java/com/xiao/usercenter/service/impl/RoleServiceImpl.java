@@ -20,9 +20,9 @@ public class RoleServiceImpl implements IRoleService {
     public ResponseBase create(RoleInfo roleInfo) {
         ResponseBase response = new ResponseBase();
         if (roleInfoMapper.insertSelective(roleInfo) > 0){
-            return response.SUCCESS();
+            return response.success();
         } else {
-            return response.FAIL("系统异常");
+            return response.fail("系统异常");
         }
     }
 }

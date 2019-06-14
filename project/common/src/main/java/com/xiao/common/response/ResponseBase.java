@@ -10,25 +10,25 @@ public class ResponseBase implements IResponseVO {
     private int code;
     private String message;
 
-    public ResponseBase SUCCESS() {
+    public ResponseBase success() {
         this.code = 1;
         this.message = "请求成功";
         return this;
     }
 
-    public ResponseBase SUCCESS(String msg) {
+    public ResponseBase success(String msg) {
         this.code = 1;
         this.message = msg;
         return this;
     }
 
-    public ResponseBase FAIL() {
+    public ResponseBase fail() {
         this.code = 0;
         this.message = "请求失败";
         return this;
     }
 
-    public ResponseBase FAIL(String msg) {
+    public ResponseBase fail(String msg) {
         this.code = 0;
         this.message = msg;
         return this;

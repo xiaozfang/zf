@@ -1,5 +1,6 @@
 package com.xiao.usercenter.service.impl;
 
+import com.xiao.database.config.annotation.TargetDataSource;
 import com.xiao.usercenter.service.IUserService;
 import com.xiao.common.response.ResponseBase;
 import com.xiao.common.response.ResponseDataBase;
@@ -21,6 +22,7 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
+    @TargetDataSource("second")
     public ResponseDataBase<UserInfo> getUser(String userid) {
 
         log.info(userInfoMapper.test(userid));

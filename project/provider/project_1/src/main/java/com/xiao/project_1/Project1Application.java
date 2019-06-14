@@ -10,6 +10,6 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "com.xiao")
 public class Project1Application {
     public static void main(String[] args) {
-        SpringApplication.run(Project1Application.class);
+        SpringApplication.run(Project1Application.class, args);
     }
 }

@@ -1,7 +1,7 @@
 package com.xiao.dao.mapper;
 
 import com.xiao.dao.entity.MenuInfo;
-import com.xiao.domain.usercenter.request.MenuBaseInfo;
+import com.xiao.domain.usercenter.response.MenuBaseInfo;
 import com.xiao.domain.usercenter.request.MenuSearchRequest;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

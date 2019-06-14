@@ -1,4 +1,4 @@
-package com.xiao.domain.usercenter.request;
+package com.xiao.domain.usercenter.response;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

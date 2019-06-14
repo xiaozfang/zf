@@ -117,7 +117,7 @@
   </update>
 
     <!--—————————————————————————————以下为新增方法——————————————————————————————————-->
-    <select id="list" resultType="com.xiao.domain.usercenter.request.MenuBaseInfo">
+    <select id="list" resultType="com.xiao.domain.usercenter.response.MenuBaseInfo">
         select id, menuname, level, parentid, url from menu_info where deleted = 0
         <if test="request.level != null and request.level != 0">
             and level = #{request.level}

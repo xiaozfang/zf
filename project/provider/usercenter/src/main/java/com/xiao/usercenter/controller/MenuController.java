@@ -1,6 +1,6 @@
 package com.xiao.usercenter.controller;
 
-import com.xiao.domain.usercenter.request.MenuBaseInfo;
+import com.xiao.domain.usercenter.response.MenuBaseInfo;
 import com.xiao.usercenter.service.IMenuService;
 import com.xiao.common.response.ResponseBase;
 import com.xiao.common.response.ResponseListBase;

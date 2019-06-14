@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,15 +40,19 @@ public class LoginController {
 
         UserInfo userInfo = userDao.getUserByName(username);
         //获取当前登录人的信息 ，如果当前登录人在黑名单中，移除
-        if (redisService.get("logout_" + username) == null) {
+        if (redisService.get("logout_" + username) != null) {
             redisService.del("logout_" + username);
             log.info("移除黑名单:" + username);
         }
         Map<String, Object> map = new HashMap<>();
+        map.put("username", "xzf");
+        map.put("userid", 100);
+        map.put("roles", Arrays.asList(100,101,102));
         // 2 生成jwt
         String jwt = JwtUtils.createJWT(map, JwtConfig.JWT_TTL);
         // 3 cookie设置默认角色
-        response.addCookie(new Cookie("current_role", ""));
+        Cookie current_role = new Cookie("current_role","100");
+        response.addCookie(current_role);
         response.setHeader("Authorization", jwt);
         return "success";
     }

@@ -1,6 +1,6 @@
-package com.xiao.zuul.util;
+package com.xiao.common.util;
 
-import com.xiao.zuul.config.JwtConfig;
+import com.xiao.common.config.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -34,7 +34,7 @@ public class JwtUtils {
 
         // 下面就是在为payload添加各种标准声明和私有声明了
         JwtBuilder builder = Jwts.builder() // 这里其实就是new一个JwtBuilder，设置jwt的body
-                    .setClaims(claims)          // 如果有私有声明，一定要先设置这个自己创建的私有的声明，这个是给builder的claim赋值，一旦写在标准的声明赋值之后，就是覆盖了那些标准的声明的
+                .setClaims(claims)          // 如果有私有声明，一定要先设置这个自己创建的私有的声明，这个是给builder的claim赋值，一旦写在标准的声明赋值之后，就是覆盖了那些标准的声明的
                 //.setIssuedAt(now)           // iat: jwt的签发时间
                 .setIssuer("xzf")          // issuer：jwt签发人
                 // sub(Subject)：代表这个JWT的主体，即它的所有人，这个是一个json格式的字符串，可以存放什么userid，roldid之类的，作为什么用户的唯一标志。
@@ -58,7 +58,7 @@ public class JwtUtils {
             return Jwts.parser()  //得到DefaultJwtParser
                     .setSigningKey(key)                 //设置签名的秘钥
                     .parseClaimsJws(jwt).getBody();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -75,11 +75,11 @@ public class JwtUtils {
                     .parseClaimsJws(jwt).getBody();     //设置需要解析的jwt
 
             // 过期时间
-            if (claims.getExpiration().before(new Date())){
+            if (claims.getExpiration().before(new Date())) {
                 return false;
             }
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

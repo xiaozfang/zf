@@ -1,6 +1,6 @@
 package com.xiao.usercenter.service.impl;
 
-import com.xiao.domain.usercenter.request.MenuBaseInfo;
+import com.xiao.domain.usercenter.response.MenuBaseInfo;
 import com.xiao.usercenter.service.IMenuService;
 import com.xiao.common.response.ResponseBase;
 import com.xiao.common.response.ResponseListBase;
@@ -27,9 +27,9 @@ public class MenuServiceImpl implements IMenuService {
     public ResponseBase create(MenuInfo menuInfo) {
         ResponseBase response = new ResponseBase();
         if (menuInfoMapper.insertSelective(menuInfo) > 0){
-            return response.SUCCESS();
+            return response.success();
         } else {
-            return response.FAIL("系统异常");
+            return response.fail("系统异常");
         }
     }
 
@@ -38,7 +38,7 @@ public class MenuServiceImpl implements IMenuService {
         ResponseListBase<MenuBaseInfo> response = new ResponseListBase<>();
         List<MenuBaseInfo> list = menuInfoMapper.list(request);
         response.setData(list);
-        response.SUCCESS();
+        response.success();
         return response;
     }
 }
