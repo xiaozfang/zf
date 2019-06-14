@@ -63,12 +63,8 @@
       },
       menuList(){
         this.$http({
-          url: '/usercenter/api/menu/list',
-          method: 'post',
-          data: {
-            'level': 0,
-            'menuname': ''
-          }
+          url: '/usercenter/api/user/test',
+          method: 'get'
         }).then(res=>{
           console.info(res)
         })

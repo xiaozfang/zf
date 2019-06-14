@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 public class UserLoginInfo {
     private String username;
-    private List<RoleInfo> roles;
+    private List<RoleBaseInfo> roles;
 }

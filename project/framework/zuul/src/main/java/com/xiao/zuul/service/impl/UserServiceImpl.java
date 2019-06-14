@@ -1,20 +1,22 @@
 package com.xiao.zuul.service.impl;
 
-import com.xiao.zuul.dao.UserDao;
-import com.xiao.zuul.pojo.UserInfo;
+import com.xiao.zuul.domain.LoginFrom;
+import com.xiao.zuul.feign.LoginService;
+import com.xiao.zuul.pojo.LoginUser;
 import com.xiao.zuul.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class UserServiceImpl implements IUserService {
 
     @Autowired
-    private UserDao userDao;
+    private LoginService loginService;
 
 
     @Override
-    public UserInfo getUserInfo(String username) {
-        return userDao.getUserByName(username);
+    public LoginUser getUserInfo(LoginFrom loginFrom) {
+        return loginService.login(loginFrom.getUsername(), loginFrom.getPassword());
     }
 }

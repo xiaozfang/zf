@@ -2,10 +2,8 @@ package com.xiao.domain.usercenter.response;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class RoleInfo {
+public class RoleBaseInfo {
     /**
      * 角色id
      */
