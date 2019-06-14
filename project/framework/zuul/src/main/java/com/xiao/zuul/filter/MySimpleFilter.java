@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
@@ -59,26 +60,30 @@ public class MySimpleFilter extends ZuulFilter {
         } else {
             Claims claims = JwtUtils.JWTDecode(token);
             if (claims != null) {
-                int userid = (Integer) claims.get("userid");
-                long ttl = claims.getExpiration().getTime();
-                long now = new Date().getTime();
-                // 验证是否过期, 是否被篡改, 是否已登出
-                if (ttl - now > 0 && userid > 0 && redisService.get("logout_" + userid) == null) {
-                    LoginUser user = new LoginUser();
-                    user.setUserid(userid);
-                    user.setUsername(claims.get("username") + "");
-                    user.setRoles((List<Integer>) claims.get("roles"));
-                    String userJson = JSONObject.toJSONString(user);
-                    context.addZuulRequestHeader("loginuser", userJson);
-                    context.setSendZuulResponse(true);
-                    context.setResponseStatusCode(200);
-                    log.info("send {} request to {}", request.getMethod(), request.getRequestURL().toString());
-                } else {
-                    log.info("签名过期");
-                    context.setSendZuulResponse(false);
-                    context.setResponseStatusCode(401);
-                    context.getResponse().setContentType("text/html;charset=UTF-8");
-                    context.setResponseBody("用户未登录或签名已失效");
+                try {
+                    int userid = (Integer) claims.get("userid");
+                    long ttl = claims.getExpiration().getTime();
+                    long now = new Date().getTime();
+                    // 验证是否过期, 是否被篡改, 是否已登出
+                    if (ttl - now > 0 && userid > 0 && redisService.get("logout_" + userid) == null) {
+                        LoginUser user = new LoginUser();
+                        user.setUserid(userid);
+                        user.setUsername(claims.get("username") + "");
+                        user.setRoles((List<Integer>) claims.get("roles"));
+                        String userJson = JSONObject.toJSONString(user);
+                        context.addZuulRequestHeader("loginuser", URLEncoder.encode(userJson, "UTF-8"));
+                        context.setSendZuulResponse(true);
+                        context.setResponseStatusCode(200);
+                        log.info("send {} request to {}", request.getMethod(), request.getRequestURL().toString());
+                    } else {
+                        log.info("签名过期");
+                        context.setSendZuulResponse(false);
+                        context.setResponseStatusCode(401);
+                        context.getResponse().setContentType("text/html;charset=UTF-8");
+                        context.setResponseBody("用户未登录或签名已失效");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             } else {
                 context.setSendZuulResponse(false);

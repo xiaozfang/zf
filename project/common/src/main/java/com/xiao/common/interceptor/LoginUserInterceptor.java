@@ -9,6 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLDecoder;
 
 @Slf4j
 @Component
@@ -25,7 +26,8 @@ public class LoginUserInterceptor implements HandlerInterceptor {
         if ("/api/user/login".equals(servletPath) || "/api/user/register".equals(servletPath)){
             return true;
         }
-        LoginUser user = JSONObject.parseObject(request.getHeader("loginuser"), LoginUser.class);
+        String loginStr = URLDecoder.decode(request.getHeader("loginuser"), "UTF-8");
+        LoginUser user = JSONObject.parseObject(loginStr, LoginUser.class);
         if (user == null) {
             log.info("请先登录");
             return false;
