@@ -9,17 +9,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RoleServiceImpl implements IRoleService {
-    private final RoleInfoMapper roleInfoMapper;
 
     @Autowired
-    public RoleServiceImpl(RoleInfoMapper roleInfoMapper) {
-        this.roleInfoMapper = roleInfoMapper;
-    }
+    RoleInfoMapper roleInfoMapper;
 
     @Override
     public ResponseBase create(RoleInfo roleInfo) {
         ResponseBase response = new ResponseBase();
-        if (roleInfoMapper.insertSelective(roleInfo) > 0){
+        if (roleInfoMapper.insertSelective(roleInfo) > 0) {
             return response.success();
         } else {
             return response.fail("系统异常");

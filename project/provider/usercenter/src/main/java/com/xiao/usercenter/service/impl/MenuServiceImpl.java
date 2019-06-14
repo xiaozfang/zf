@@ -16,17 +16,13 @@ import java.util.List;
 @Slf4j
 @Service
 public class MenuServiceImpl implements IMenuService {
-    private final MenuInfoMapper menuInfoMapper;
-
     @Autowired
-    public MenuServiceImpl(MenuInfoMapper menuInfoMapper) {
-        this.menuInfoMapper = menuInfoMapper;
-    }
+    private MenuInfoMapper menuInfoMapper;
 
     @Override
     public ResponseBase create(MenuInfo menuInfo) {
         ResponseBase response = new ResponseBase();
-        if (menuInfoMapper.insertSelective(menuInfo) > 0){
+        if (menuInfoMapper.insertSelective(menuInfo) > 0) {
             return response.success();
         } else {
             return response.fail("系统异常");

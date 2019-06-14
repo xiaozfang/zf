@@ -15,12 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/role")
 public class RoleController {
-    private final IRoleService roleService;
-
     @Autowired
-    public RoleController(IRoleService roleService) {
-        this.roleService = roleService;
-    }
+    IRoleService roleService;
 
     @PostMapping("/create")
     @ApiOperation("新增角色")

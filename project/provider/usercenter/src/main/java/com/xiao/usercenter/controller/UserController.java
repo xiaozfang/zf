@@ -23,12 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "用户相关接口")
 @RequestMapping("/api/user")
 public class UserController {
-    private final IUserService userService;
 
     @Autowired
-    public UserController(IUserService userService) {
-        this.userService = userService;
-    }
+    private IUserService userService;
 
     @GetMapping("/detail")
     @ApiOperation("用户查询详情接口")
@@ -38,7 +35,7 @@ public class UserController {
 
 
     @GetMapping("/login")
-    @ApiOperation(value = "用户登录",hidden = true)
+    @ApiOperation(value = "用户登录", hidden = true)
     public LoginUser login(@RequestParam("username") String username, @RequestParam("password") String password) {
         return userService.login(username, password);
     }

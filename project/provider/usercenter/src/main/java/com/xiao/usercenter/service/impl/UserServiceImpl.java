@@ -15,14 +15,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class UserServiceImpl implements IUserService {
-    private final UserInfoMapper userInfoMapper;
-    private final UserRoleInfoMapper userRoleInfoMapper;
 
     @Autowired
-    public UserServiceImpl(UserInfoMapper userInfoMapper, UserRoleInfoMapper userRoleInfoMapper) {
-        this.userInfoMapper = userInfoMapper;
-        this.userRoleInfoMapper = userRoleInfoMapper;
-    }
+    private UserInfoMapper userInfoMapper;
+    @Autowired
+    private UserRoleInfoMapper userRoleInfoMapper;
 
 
     @Override
@@ -56,7 +53,7 @@ public class UserServiceImpl implements IUserService {
         log.info("登录成功");
         LoginUser loginUser = new LoginUser();
         UserInfo user = userInfoMapper.login(username, password);
-        if (user == null){
+        if (user == null) {
             return null;
         }
         loginUser.setUserid(user.getUserid());

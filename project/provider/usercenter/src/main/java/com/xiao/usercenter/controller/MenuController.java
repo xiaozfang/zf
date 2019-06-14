@@ -18,12 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/menu")
 public class MenuController {
-    private final IMenuService menuService;
 
     @Autowired
-    public MenuController(IMenuService menuService) {
-        this.menuService = menuService;
-    }
+    private IMenuService menuService;
 
     @PostMapping("/create")
     @ApiOperation("创建菜单")
