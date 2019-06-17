@@ -1,7 +1,7 @@
 package com.xiao.zuul.service;
 
 import com.xiao.zuul.domain.LoginFrom;
-import com.xiao.zuul.pojo.LoginUser;
+import com.xiao.zuul.domain.LoginUser;
 
 public interface IUserService {
     /**

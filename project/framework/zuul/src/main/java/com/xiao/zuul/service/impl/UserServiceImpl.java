@@ -2,7 +2,7 @@ package com.xiao.zuul.service.impl;
 
 import com.xiao.zuul.domain.LoginFrom;
 import com.xiao.zuul.feign.LoginService;
-import com.xiao.zuul.pojo.LoginUser;
+import com.xiao.zuul.domain.LoginUser;
 import com.xiao.zuul.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

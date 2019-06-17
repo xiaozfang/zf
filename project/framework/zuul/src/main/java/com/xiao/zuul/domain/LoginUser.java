@@ -1,4 +1,4 @@
-package com.xiao.zuul.pojo;
+package com.xiao.zuul.domain;
 
 import lombok.Data;
 

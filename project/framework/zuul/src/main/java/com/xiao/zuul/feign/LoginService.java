@@ -1,7 +1,7 @@
 package com.xiao.zuul.feign;
 
 import com.xiao.zuul.feign.fallback.CommonFallBack;
-import com.xiao.zuul.pojo.LoginUser;
+import com.xiao.zuul.domain.LoginUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;

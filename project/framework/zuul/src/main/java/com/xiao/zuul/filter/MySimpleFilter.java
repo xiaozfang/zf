@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.xiao.redis.RedisService;
-import com.xiao.zuul.pojo.LoginUser;
+import com.xiao.zuul.domain.LoginUser;
 import com.xiao.zuul.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
