@@ -1,8 +1,8 @@
 package com.xiao.usercenter.service.impl;
 
 import com.xiao.common.model.LoginUser;
-import com.xiao.common.response.ResponseBase;
-import com.xiao.common.response.ResponseDataBase;
+import com.xiao.common.response.BaseResponse;
+import com.xiao.common.response.BaseDataResponse;
 import com.xiao.dao.entity.UserInfo;
 import com.xiao.dao.mapper.UserInfoMapper;
 import com.xiao.dao.mapper.UserRoleInfoMapper;
@@ -24,26 +24,26 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     @TargetDataSource("second")
-    public ResponseDataBase<UserInfo> getUser(String userid) {
+    public BaseDataResponse<UserInfo> getUser(String userid) {
 
         log.info(userInfoMapper.test(userid));
         return null;
     }
 
     @Override
-    public ResponseBase addUser(UserInfo user) {
+    public BaseResponse addUser(UserInfo user) {
         userInfoMapper.insertSelective(user);
         return null;
     }
 
     @Override
-    public ResponseBase editUser(UserInfo user) {
+    public BaseResponse editUser(UserInfo user) {
         userInfoMapper.updateByPrimaryKey(user);
         return null;
     }
 
     @Override
-    public ResponseBase deleteUser(String userid) {
+    public BaseResponse deleteUser(String userid) {
 //        User user = userInfoMapper.deleteByPrimaryKey(userid);
         return null;
     }

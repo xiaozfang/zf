@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLEncoder;
 import java.util.Date;
@@ -70,6 +71,11 @@ public class MySimpleFilter extends ZuulFilter {
                         user.setUserid(userid);
                         user.setUsername(claims.get("username") + "");
                         user.setRoles((List<Integer>) claims.get("roles"));
+                        for (Cookie cookie : request.getCookies()){
+                            if ("current_role".equals(cookie.getName())){
+                                user.setCurrentrole(Integer.parseInt(cookie.getValue()));
+                            }
+                        }
                         String userJson = JSONObject.toJSONString(user);
                         context.addZuulRequestHeader("loginuser", URLEncoder.encode(userJson, "UTF-8"));
                         context.setSendZuulResponse(true);

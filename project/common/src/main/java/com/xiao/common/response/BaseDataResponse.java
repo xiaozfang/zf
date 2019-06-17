@@ -1,6 +1,6 @@
 package com.xiao.common.response;
 
-public class ResponseDataBase<T> extends ResponseBase {
+public class BaseDataResponse<T> extends BaseResponse {
 
     private static final Long serialVersionUID = 1L;
 

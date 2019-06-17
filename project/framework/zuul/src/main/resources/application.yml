@@ -20,6 +20,7 @@ zuul:
     project-03:
       path: /project-03/**
       serviceId: project-01
+  sensitive-headers: Authorization
 eureka:
   client:
     service-url:

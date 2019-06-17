@@ -3,7 +3,7 @@ package com.xiao.common.response;
 
 import java.util.List;
 
-public class ResponseListBase<T> extends ResponseBase {
+public class BaseListResponse<T> extends BaseResponse {
     private static final Long serialVersionUID = 1L;
     private List<T> data;
 

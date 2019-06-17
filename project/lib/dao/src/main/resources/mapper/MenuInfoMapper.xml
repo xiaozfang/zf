@@ -114,7 +114,7 @@
       deleted = #{deleted,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
-  </update>
+    </update>
 
     <!--—————————————————————————————以下为新增方法——————————————————————————————————-->
     <select id="list" resultType="com.xiao.domain.usercenter.response.MenuBaseInfo">

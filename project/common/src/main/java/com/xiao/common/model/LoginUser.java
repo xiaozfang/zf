@@ -10,4 +10,13 @@ public class LoginUser {
     private String username;
 
     private List<Integer> roles;
+    private int currentrole;
+
+    public boolean checkRole(){
+        return roles.contains(currentrole);
+    }
+
+    public boolean isAdmin(){
+        return currentrole == 100;
+    }
 }

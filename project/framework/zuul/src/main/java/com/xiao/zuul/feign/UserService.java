@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Service
 @FeignClient(name = "usercenter", fallback = CommonFallBack.class, decode404 = true)
-public interface LoginService {
+public interface UserService {
     /**
      * 用户登录接口
      */

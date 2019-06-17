@@ -2,8 +2,8 @@ package com.xiao.usercenter.service.impl;
 
 import com.xiao.domain.usercenter.response.MenuBaseInfo;
 import com.xiao.usercenter.service.IMenuService;
-import com.xiao.common.response.ResponseBase;
-import com.xiao.common.response.ResponseListBase;
+import com.xiao.common.response.BaseResponse;
+import com.xiao.common.response.BaseListResponse;
 import com.xiao.dao.entity.MenuInfo;
 import com.xiao.dao.mapper.MenuInfoMapper;
 import com.xiao.domain.usercenter.request.MenuSearchRequest;
@@ -20,8 +20,8 @@ public class MenuServiceImpl implements IMenuService {
     private MenuInfoMapper menuInfoMapper;
 
     @Override
-    public ResponseBase create(MenuInfo menuInfo) {
-        ResponseBase response = new ResponseBase();
+    public BaseResponse create(MenuInfo menuInfo) {
+        BaseResponse response = new BaseResponse();
         if (menuInfoMapper.insertSelective(menuInfo) > 0) {
             return response.success();
         } else {
@@ -30,8 +30,8 @@ public class MenuServiceImpl implements IMenuService {
     }
 
     @Override
-    public ResponseListBase<MenuBaseInfo> list(MenuSearchRequest request) {
-        ResponseListBase<MenuBaseInfo> response = new ResponseListBase<>();
+    public BaseListResponse<MenuBaseInfo> list(MenuSearchRequest request) {
+        BaseListResponse<MenuBaseInfo> response = new BaseListResponse<>();
         List<MenuBaseInfo> list = menuInfoMapper.list(request);
         response.setData(list);
         response.success();

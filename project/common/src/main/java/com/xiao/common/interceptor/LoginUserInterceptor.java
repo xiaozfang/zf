@@ -18,6 +18,7 @@ public class LoginUserInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+
         log.info("context: " + request.getContextPath());
         log.info("url: " + request.getRequestURI());
         log.info("servletPath: " + request.getServletPath());

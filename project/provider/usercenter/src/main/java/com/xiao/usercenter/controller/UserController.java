@@ -2,8 +2,8 @@ package com.xiao.usercenter.controller;
 
 import com.xiao.common.context.LoginUserContext;
 import com.xiao.common.model.LoginUser;
-import com.xiao.common.response.ResponseBase;
-import com.xiao.common.response.ResponseDataBase;
+import com.xiao.common.response.BaseResponse;
+import com.xiao.common.response.BaseDataResponse;
 import com.xiao.dao.entity.UserInfo;
 import com.xiao.usercenter.service.IUserService;
 import io.swagger.annotations.Api;
@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("/detail")
     @ApiOperation("用户查询详情接口")
-    public ResponseDataBase<UserInfo> getUser() {
+    public BaseDataResponse<UserInfo> getUser() {
         return userService.getUser("");
     }
 
@@ -42,26 +42,26 @@ public class UserController {
 
     @GetMapping("/test")
     @ApiOperation("用户测试接口")
-    public ResponseDataBase<UserInfo> getUserFromTest() {
+    public BaseDataResponse<UserInfo> getUserFromTest() {
         log.info(LoginUserContext.getLoginUser().getUsername());
         return userService.getUser("");
     }
 
     @PostMapping("/create")
     @ApiOperation("新增用户配置")
-    public ResponseBase addUser(@RequestBody UserInfo user) {
+    public BaseResponse addUser(@RequestBody UserInfo user) {
         return userService.addUser(user);
     }
 
     @PostMapping("/edit")
     @ApiOperation("编辑用户配置")
-    public ResponseBase editUser(@RequestBody UserInfo user) {
+    public BaseResponse editUser(@RequestBody UserInfo user) {
         return userService.editUser(user);
     }
 
     @GetMapping("/delete")
     @ApiOperation("删除用户配置")
-    public ResponseBase deleteUser(@ApiParam(name = "用户ID") String userid) {
+    public BaseResponse deleteUser(@ApiParam(name = "用户ID") String userid) {
         return userService.deleteUser(userid);
     }
 }

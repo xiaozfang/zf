@@ -44,21 +44,24 @@ public class LoginController {
         if (user == null) {
             return new ResponseBase().fail("用户名/密码错误");
         }
+        int userid = user.getUserid();
         //获取当前登录人的信息 ，如果当前登录人在黑名单中，移除
-        if (redisService.get("logout_" + username) != null) {
-            redisService.del("logout_" + username);
-            log.info("移除黑名单:" + username);
+        if (redisService.get("logout_" + userid) != null) {
+            redisService.del("logout_" + userid);
+            log.info("移除黑名单:" + userid);
         }
         List<Integer> roles = user.getRoles();
         Map<String, Object> map = new HashMap<>();
         map.put("username", user.getUsername());
-        map.put("userid", user.getUserid());
+        map.put("userid", userid);
         map.put("roles", roles);
         // 2 生成jwt
         String jwt = JwtUtils.createJWT(map, JwtConfig.JWT_TTL);
         // 3 cookie设置默认角色
         if (roles != null && roles.size() > 0) {
             Cookie current_role = new Cookie("current_role", user.getRoles().get(0) + "");
+            current_role.setDomain("localhost");
+            current_role.setPath("/");
             response.addCookie(current_role);
         }
         response.setHeader("Authorization", jwt);

@@ -1,13 +1,13 @@
 package com.xiao.usercenter.service;
 
-import com.xiao.common.response.ResponseBase;
-import com.xiao.common.response.ResponseListBase;
+import com.xiao.common.response.BaseResponse;
+import com.xiao.common.response.BaseListResponse;
 import com.xiao.dao.entity.MenuInfo;
 import com.xiao.domain.usercenter.response.MenuBaseInfo;
 import com.xiao.domain.usercenter.request.MenuSearchRequest;
 
 public interface IMenuService {
-    ResponseBase create(MenuInfo menuInfo);
+    BaseResponse create(MenuInfo menuInfo);
 
-    ResponseListBase<MenuBaseInfo> list(MenuSearchRequest request);
+    BaseListResponse<MenuBaseInfo> list(MenuSearchRequest request);
 }

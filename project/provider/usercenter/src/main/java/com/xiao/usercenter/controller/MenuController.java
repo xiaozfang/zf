@@ -1,9 +1,9 @@
 package com.xiao.usercenter.controller;
 
+import com.xiao.common.response.BaseListResponse;
 import com.xiao.domain.usercenter.response.MenuBaseInfo;
 import com.xiao.usercenter.service.IMenuService;
-import com.xiao.common.response.ResponseBase;
-import com.xiao.common.response.ResponseListBase;
+import com.xiao.common.response.BaseResponse;
 import com.xiao.dao.entity.MenuInfo;
 import com.xiao.domain.usercenter.request.MenuSearchRequest;
 import io.swagger.annotations.Api;
@@ -24,14 +24,14 @@ public class MenuController {
 
     @PostMapping("/create")
     @ApiOperation("创建菜单")
-    public ResponseBase create(@RequestBody MenuInfo menuInfo){
+    public BaseResponse create(@RequestBody MenuInfo menuInfo){
         return menuService.create(menuInfo);
     }
 
 
     @PostMapping("/list")
     @ApiOperation("查询菜单")
-    public ResponseListBase<MenuBaseInfo> list(@RequestBody MenuSearchRequest request){
+    public BaseListResponse<MenuBaseInfo> list(@RequestBody MenuSearchRequest request){
         return menuService.list(request);
     }
 }

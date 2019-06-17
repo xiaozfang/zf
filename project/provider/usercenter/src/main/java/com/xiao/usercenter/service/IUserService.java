@@ -1,19 +1,19 @@
 package com.xiao.usercenter.service;
 
 import com.xiao.common.model.LoginUser;
-import com.xiao.common.response.ResponseBase;
-import com.xiao.common.response.ResponseDataBase;
+import com.xiao.common.response.BaseResponse;
+import com.xiao.common.response.BaseDataResponse;
 import com.xiao.dao.entity.UserInfo;
 
 public interface IUserService {
 
-    ResponseDataBase<UserInfo> getUser(String userid);
+    BaseDataResponse<UserInfo> getUser(String userid);
 
-    ResponseBase addUser(UserInfo user);
+    BaseResponse addUser(UserInfo user);
 
-    ResponseBase editUser(UserInfo user);
+    BaseResponse editUser(UserInfo user);
 
-    ResponseBase deleteUser(String userid);
+    BaseResponse deleteUser(String userid);
 
 
     LoginUser login(String username, String password);

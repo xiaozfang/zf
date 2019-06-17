@@ -1,6 +1,6 @@
 //package com.xiao.oauth2.controller;
 //
-//import com.xiao.common.response.ResponseBase;
+//import com.xiao.common.response.BaseResponse;
 //import com.xiao.oauth2.config.JwtConfig;
 //import com.xiao.oauth2.service.JwtService;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@
 //    }
 //
 //    @RequestMapping("/home")
-//    public ResponseBase setCurrentUser(Authentication auth, HttpServletResponse response){
+//    public BaseResponse setCurrentUser(Authentication auth, HttpServletResponse response){
 //
 //        // 1 获取当前登录人的信息
 //        auth.getAuthorities();
@@ -48,6 +48,6 @@
 //        // 3 cookie设置默认角色
 //        response.addCookie(new Cookie("current_role", ""));
 //        response.setHeader("Authorization", jwt);
-//        return new ResponseBase().SUCCESS();
+//        return new BaseResponse().SUCCESS();
 //    }
 //}

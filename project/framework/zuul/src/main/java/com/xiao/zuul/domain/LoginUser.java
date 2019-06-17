@@ -9,4 +9,5 @@ public class LoginUser {
     private int userid;
     private String username;
     private List<Integer> roles;
+    private int currentrole;
 }

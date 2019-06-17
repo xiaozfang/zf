@@ -27,7 +27,7 @@ public class UserRoleInfo {
     private Integer roleid;
 
     /**
-     * 0-未启用，1-启用，2-禁用
+     * 1-启用，2-禁用
      */
     private Integer status;
 
