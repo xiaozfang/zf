@@ -7,7 +7,7 @@ import com.xiao.dao.entity.UserInfo;
 
 public interface IUserService {
 
-    BaseDataResponse<UserInfo> getUser(String userid);
+    BaseDataResponse<UserInfo> getUserInfo(int userid);
 
     BaseResponse addUser(UserInfo user);
 

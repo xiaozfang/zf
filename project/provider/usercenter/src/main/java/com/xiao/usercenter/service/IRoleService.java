@@ -1,5 +1,6 @@
 package com.xiao.usercenter.service;
 
+import com.xiao.common.response.BaseDataResponse;
 import com.xiao.common.response.BaseListResponse;
 import com.xiao.common.response.BaseResponse;
 import com.xiao.dao.entity.RoleInfo;
@@ -16,4 +17,6 @@ public interface IRoleService {
     BaseResponse changeRoleStatus(int roleid, int status);
 
     BaseResponse changeUserRoleStatus(int userid, int roleid, int status);
+
+    BaseListResponse<RoleBaseInfo> getUserRoles(int userid);
 }

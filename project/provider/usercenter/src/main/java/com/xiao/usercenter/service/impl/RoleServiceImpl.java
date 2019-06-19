@@ -11,13 +11,15 @@ import com.xiao.usercenter.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RoleServiceImpl implements IRoleService {
 
     @Autowired
-    RoleInfoMapper roleInfoMapper;
+    private RoleInfoMapper roleInfoMapper;
     @Autowired
-    UserRoleInfoMapper userRoleInfoMapper;
+    private UserRoleInfoMapper userRoleInfoMapper;
 
     @Override
     public BaseResponse create(RoleInfo roleInfo) {
@@ -35,9 +37,9 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public BaseResponse addUserRoleConfig(int userid, int roleid) {
+    public BaseResponse addUserRoleConfig(int userId, int roleId) {
         BaseResponse response = new BaseResponse();
-        if (userRoleInfoMapper.insertUserRoleInfo(userid, roleid) > 0){
+        if (userRoleInfoMapper.insertUserRoleInfo(userId, roleId) > 0){
             return response.success();
         } else {
             return response.fail("系统异常");
@@ -45,10 +47,10 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public BaseResponse changeRoleStatus(int roleid, int status) {
+    public BaseResponse changeRoleStatus(int roleId, int status) {
         BaseResponse response = new BaseResponse();
-        if (roleInfoMapper.updateRoleStatus(roleid, status) > 0){
-            userRoleInfoMapper.updateUserRoleStatusByRoleid(roleid, status);
+        if (roleInfoMapper.updateRoleStatus(roleId, status) > 0){
+            userRoleInfoMapper.updateUserRoleStatusByRoleId(roleId, status);
             return response.success();
         } else {
             return response.fail("该角色不存在");
@@ -56,13 +58,22 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public BaseResponse changeUserRoleStatus(int userid, int roleid, int status) {
+    public BaseResponse changeUserRoleStatus(int userId, int roleId, int status) {
         BaseResponse response = new BaseResponse();
-        if (userRoleInfoMapper.updateUserRoleStatus(userid, roleid, status) > 0){
+        if (userRoleInfoMapper.updateUserRoleStatus(userId, roleId, status) > 0){
             return response.success();
         } else {
             return response.fail("该用户角色不存在");
         }
+    }
+
+    @Override
+    public BaseListResponse<RoleBaseInfo> getUserRoles(int userId) {
+        BaseListResponse<RoleBaseInfo> response = new BaseListResponse<>();
+        List<RoleBaseInfo> roles = userRoleInfoMapper.selectRolesByUserId(userId);
+        response.setData(roles);
+        response.setCode(1);
+        return response;
     }
 
 }

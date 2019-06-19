@@ -16,7 +16,7 @@ public class LoginUser {
         return roles.contains(currentrole);
     }
 
-    public boolean isAdmin(){
+    public boolean haveAdminPermission(){
         return currentrole == 100;
     }
 }

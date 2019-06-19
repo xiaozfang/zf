@@ -1,6 +1,7 @@
 package com.xiao.dao.mapper;
 
 import com.xiao.dao.entity.UserRoleInfo;
+import com.xiao.domain.usercenter.response.RoleBaseInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -22,25 +23,26 @@ public interface UserRoleInfoMapper {
     int updateByPrimaryKeySelective(UserRoleInfo record);
 
     int updateByPrimaryKey(UserRoleInfo record);
+
     //——————————————————————————————————以下为新增方法————————————————————————————————————//
     @Select({
-            "select roleid from user_role_info where deleted = 0 and status = 1 and userid = #{userid}"
+            "select roleid, rolename from user_role_info where deleted = 0 and status = 1 and userid = #{userId}"
     })
-    List<Integer> selectRoleidsByUserid(@Param("userid") Integer userid);
+    List<RoleBaseInfo> selectRolesByUserId(@Param("userId") Integer userId);
 
     @Insert({
-            "insert into user_role_info (userid, roleid, status) values(#{userid}, #{roleid}, 1)"
+            "insert into user_role_info (userid, roleid, status) values(#{userId}, #{roleId}, 1)"
     })
-    int insertUserRoleInfo(@Param("userid") Integer userid, @Param("roleid") int roleid);
+    int insertUserRoleInfo(@Param("userId") Integer userId, @Param("roleId") int roleId);
 
     @Update({
             "update user_role_info set status = ${status}",
-            "where deleted = 0 and userid =#{userid} and roleid = #{roleid}"
+            "where deleted = 0 and userid =#{userId} and roleid = #{roleId}"
     })
-    int updateUserRoleStatus(@Param("userid") Integer userid, @Param("roleid") int roleid, @Param("status") int status);
-    @Update({
-            "update user_role_info set status = #{status} where roleid = #{roleid}"
-    })
-    int updateUserRoleStatusByRoleid(@Param("roleid") int roleid, @Param("status") int status);
+    int updateUserRoleStatus(@Param("userId") Integer userId, @Param("roleId") int roleId, @Param("status") int status);
 
+    @Update({
+            "update user_role_info set status = #{status} where deleted = 0 and roleid = #{roleId}"
+    })
+    int updateUserRoleStatusByRoleId(@Param("roleId") int roleId, @Param("status") int status);
 }

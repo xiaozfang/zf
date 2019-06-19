@@ -5,12 +5,13 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="taskid" jdbcType="INTEGER" property="taskid" />
     <result column="taskname" jdbcType="VARCHAR" property="taskname" />
+    <result column="cron" jdbcType="VARCHAR" property="cron" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="deleted" jdbcType="INTEGER" property="deleted" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, taskid, taskname, status, deleted, createtime
+    id, taskid, taskname, cron, status, deleted, createtime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,11 +25,11 @@
   </delete>
   <insert id="insert" parameterType="com.xiao.dao.entity.TaskConfig">
     insert into task_config (id, taskid, taskname, 
-      status, deleted, createtime
-      )
+      cron, status, deleted, 
+      createtime)
     values (#{id,jdbcType=INTEGER}, #{taskid,jdbcType=INTEGER}, #{taskname,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}
-      )
+      #{cron,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.xiao.dao.entity.TaskConfig">
     insert into task_config
@@ -41,6 +42,9 @@
       </if>
       <if test="taskname != null">
         taskname,
+      </if>
+      <if test="cron != null">
+        cron,
       </if>
       <if test="status != null">
         status,
@@ -62,6 +66,9 @@
       <if test="taskname != null">
         #{taskname,jdbcType=VARCHAR},
       </if>
+      <if test="cron != null">
+        #{cron,jdbcType=VARCHAR},
+      </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
@@ -82,6 +89,9 @@
       <if test="taskname != null">
         taskname = #{taskname,jdbcType=VARCHAR},
       </if>
+      <if test="cron != null">
+        cron = #{cron,jdbcType=VARCHAR},
+      </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -98,6 +108,7 @@
     update task_config
     set taskid = #{taskid,jdbcType=INTEGER},
       taskname = #{taskname,jdbcType=VARCHAR},
+      cron = #{cron,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       deleted = #{deleted,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP}

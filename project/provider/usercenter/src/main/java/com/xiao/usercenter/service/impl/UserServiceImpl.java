@@ -1,16 +1,19 @@
 package com.xiao.usercenter.service.impl;
 
 import com.xiao.common.model.LoginUser;
-import com.xiao.common.response.BaseResponse;
 import com.xiao.common.response.BaseDataResponse;
+import com.xiao.common.response.BaseResponse;
 import com.xiao.dao.entity.UserInfo;
 import com.xiao.dao.mapper.UserInfoMapper;
 import com.xiao.dao.mapper.UserRoleInfoMapper;
-import com.xiao.database.config.annotation.TargetDataSource;
+import com.xiao.domain.usercenter.response.RoleBaseInfo;
 import com.xiao.usercenter.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -23,11 +26,12 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    @TargetDataSource("second")
-    public BaseDataResponse<UserInfo> getUser(String userid) {
-
-        log.info(userInfoMapper.test(userid));
-        return null;
+    public BaseDataResponse<UserInfo> getUserInfo(int userid) {
+        BaseDataResponse<UserInfo> response = new BaseDataResponse<>();
+        UserInfo user = userInfoMapper.selectUserInfoByUserId(userid);
+        response.setData(user);
+        response.setCode(1);
+        return response;
     }
 
     @Override
@@ -56,9 +60,15 @@ public class UserServiceImpl implements IUserService {
         if (user == null) {
             return null;
         }
+        List<Integer> roles = new ArrayList<>();
+
+        List<RoleBaseInfo> roleBaseInfos =  userRoleInfoMapper.selectRolesByUserId(user.getUserid());
+        if (roleBaseInfos != null){
+            roleBaseInfos.forEach(p->roles.add(p.getRoleid()));
+        }
         loginUser.setUserid(user.getUserid());
         loginUser.setUsername(user.getLastname());
-        loginUser.setRoles(userRoleInfoMapper.selectRoleidsByUserid(user.getUserid()));
+        loginUser.setRoles(roles);
         return loginUser;
     }
 }

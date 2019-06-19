@@ -5,12 +5,13 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="userid" jdbcType="INTEGER" property="userid" />
     <result column="roleid" jdbcType="INTEGER" property="roleid" />
+    <result column="rolename" jdbcType="VARCHAR" property="rolename" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="deleted" jdbcType="INTEGER" property="deleted" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, userid, roleid, status, deleted, createtime
+    id, userid, roleid, rolename, status, deleted, createtime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,11 +25,11 @@
   </delete>
   <insert id="insert" parameterType="com.xiao.dao.entity.UserRoleInfo">
     insert into user_role_info (id, userid, roleid, 
-      status, deleted, createtime
-      )
+      rolename, status, deleted, 
+      createtime)
     values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}
-      )
+      #{rolename,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.xiao.dao.entity.UserRoleInfo">
     insert into user_role_info
@@ -41,6 +42,9 @@
       </if>
       <if test="roleid != null">
         roleid,
+      </if>
+      <if test="rolename != null">
+        rolename,
       </if>
       <if test="status != null">
         status,
@@ -62,6 +66,9 @@
       <if test="roleid != null">
         #{roleid,jdbcType=INTEGER},
       </if>
+      <if test="rolename != null">
+        #{rolename,jdbcType=VARCHAR},
+      </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
@@ -82,6 +89,9 @@
       <if test="roleid != null">
         roleid = #{roleid,jdbcType=INTEGER},
       </if>
+      <if test="rolename != null">
+        rolename = #{rolename,jdbcType=VARCHAR},
+      </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -98,6 +108,7 @@
     update user_role_info
     set userid = #{userid,jdbcType=INTEGER},
       roleid = #{roleid,jdbcType=INTEGER},
+      rolename = #{rolename,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       deleted = #{deleted,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP}

@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = "角色相关接口")
+@Api(tags = "管理员相关接口")
 @RestController
-@RequestMapping("/api/role")
-public class RoleController {
+@RequestMapping("/api/admin")
+public class AdminController {
     @Autowired
     IRoleService roleService;
 
@@ -29,7 +29,7 @@ public class RoleController {
     @ApiOperation("新增角色")
     public BaseResponse create(@RequestBody RoleInfo roleInfo) {
         LoginUser user = LoginUserContext.getLoginUser();
-        if (!user.isAdmin()){
+        if (!user.haveAdminPermission()){
             return new BaseResponse().fail("你没有此接口的使用权限");
         }
         return roleService.create(roleInfo);
@@ -39,7 +39,7 @@ public class RoleController {
     @ApiOperation("新增用户角色配置")
     public BaseResponse addUserRoleConfig(@RequestParam int userid, @RequestParam int roleid) {
         LoginUser user = LoginUserContext.getLoginUser();
-        if (!user.isAdmin()){
+        if (!user.haveAdminPermission()){
             return new BaseResponse().fail("你没有此接口的使用权限");
         }
         return roleService.addUserRoleConfig(userid, roleid);
@@ -50,7 +50,7 @@ public class RoleController {
     public BaseListResponse<RoleBaseInfo> list(@RequestBody RoleSearchRequest request) {
         BaseListResponse<RoleBaseInfo> response = new BaseListResponse<>();
         LoginUser user = LoginUserContext.getLoginUser();
-        if (!user.isAdmin()){
+        if (!user.haveAdminPermission()){
             response.setCode(0);
             response.setMessage("你没有此接口的使用权限");
             return response;
@@ -62,9 +62,11 @@ public class RoleController {
     @ApiOperation("改变角色状态")
     public BaseResponse changeRoleStatus(@RequestParam int roleid, @RequestParam int status) {
         LoginUser user = LoginUserContext.getLoginUser();
-        if (!user.isAdmin()){
+        if (!user.haveAdminPermission()){
             return new BaseResponse().fail("你没有此接口的使用权限");
         }
+        // todo 当作废了一个角色时，怎么实现禁用正在使用该角色的人
+        //
         return roleService.changeRoleStatus(roleid, status);
     }
 
@@ -72,7 +74,7 @@ public class RoleController {
     @ApiOperation("改变角色状态")
     public BaseResponse changeUserRoleStatus(@RequestParam int userid, @RequestParam int roleid, @RequestParam int status) {
         LoginUser user = LoginUserContext.getLoginUser();
-        if (!user.isAdmin()){
+        if (!user.haveAdminPermission()){
             return new BaseResponse().fail("你没有此接口的使用权限");
         }
         return roleService.changeUserRoleStatus(userid, roleid, status);

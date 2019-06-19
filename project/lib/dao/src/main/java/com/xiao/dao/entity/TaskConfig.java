@@ -1,14 +1,14 @@
 package com.xiao.dao.entity;
 
-import java.util.Date;
-
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 
  *
  * @author Aha
- * @date 2019-05-31
+ * @date 2019-06-19
  */
 
 @Data
@@ -29,7 +29,7 @@ public class TaskConfig {
     private String taskname;
 
     /**
-     * 任务执行时间cron表达式
+     * 执行时间cron表达式
      */
     private String cron;
 

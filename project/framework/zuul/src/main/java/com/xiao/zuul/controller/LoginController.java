@@ -58,12 +58,18 @@ public class LoginController {
         // 2 生成jwt
         String jwt = JwtUtils.createJWT(map, JwtConfig.JWT_TTL);
         // 3 cookie设置默认角色
+        Cookie current_role = new Cookie("current_role", "");
+        current_role.setDomain("fang.com");
+        current_role.setPath("/");
+        current_role.setMaxAge(60);
         if (roles != null && roles.size() > 0) {
-            Cookie current_role = new Cookie("current_role", user.getRoles().get(0) + "");
-            current_role.setDomain("localhost");
-            current_role.setPath("/");
-            response.addCookie(current_role);
+            // 取第一个角色
+            current_role.setValue(String.valueOf(roles.get(0)));
+        } else {
+            // 如果没有角色，设置一个默认角色
+            current_role.setValue("100");
         }
+        response.addCookie(current_role);
         response.setHeader("Authorization", jwt);
         return new ResponseBase().success("登录成功");
     }

@@ -28,4 +28,9 @@ public interface UserInfoMapper {
             "select * from user_info where username = #{username} and password = #{password} and status = 1 and deleted = 0"
     })
     UserInfo login(@Param("username") String username, @Param("password") String password);
+
+    @Select({
+            "select * from user_info where userid =#{userid} and status = 1 and deleted = 0"
+    })
+    UserInfo selectUserInfoByUserId(@Param("userid") int userid);
 }
