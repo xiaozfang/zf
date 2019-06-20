@@ -1,4 +1,4 @@
-package com.xiao.domain.usercenter.response;
+package com.xiao.common.model;
 
 import lombok.Data;
 

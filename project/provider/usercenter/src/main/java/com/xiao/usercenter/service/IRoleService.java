@@ -1,11 +1,10 @@
 package com.xiao.usercenter.service;
 
-import com.xiao.common.response.BaseDataResponse;
 import com.xiao.common.response.BaseListResponse;
 import com.xiao.common.response.BaseResponse;
 import com.xiao.dao.entity.RoleInfo;
 import com.xiao.domain.usercenter.request.RoleSearchRequest;
-import com.xiao.domain.usercenter.response.RoleBaseInfo;
+import com.xiao.common.model.RoleBaseInfo;
 
 public interface IRoleService {
     BaseResponse create(RoleInfo roleInfo);

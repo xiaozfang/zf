@@ -1,7 +1,7 @@
 package com.xiao.dao.mapper;
 
 import com.xiao.dao.entity.UserRoleInfo;
-import com.xiao.domain.usercenter.response.RoleBaseInfo;
+import com.xiao.common.model.RoleBaseInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

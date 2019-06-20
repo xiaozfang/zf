@@ -5,7 +5,7 @@ import com.xiao.common.model.LoginUser;
 import com.xiao.common.response.BaseDataResponse;
 import com.xiao.common.response.BaseListResponse;
 import com.xiao.dao.entity.UserInfo;
-import com.xiao.domain.usercenter.response.RoleBaseInfo;
+import com.xiao.common.model.RoleBaseInfo;
 import com.xiao.usercenter.service.IRoleService;
 import com.xiao.usercenter.service.IUserService;
 import io.swagger.annotations.Api;

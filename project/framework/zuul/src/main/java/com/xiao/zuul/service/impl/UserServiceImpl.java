@@ -1,8 +1,8 @@
 package com.xiao.zuul.service.impl;
 
-import com.xiao.zuul.domain.LoginFrom;
+import com.xiao.common.model.LoginFrom;
+import com.xiao.common.model.LoginUser;
 import com.xiao.zuul.feign.UserService;
-import com.xiao.zuul.domain.LoginUser;
 import com.xiao.zuul.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

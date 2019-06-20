@@ -1,5 +1,7 @@
 package com.xiao.zuul;
 
+import com.xiao.common.config.LoginUserConfig;
+import com.xiao.common.interceptor.LoginUserInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.SpringCloudApplication;
@@ -7,6 +9,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -15,7 +18,10 @@ import org.springframework.web.filter.CorsFilter;
 @EnableZuulProxy
 @EnableFeignClients
 @SpringCloudApplication
-@ComponentScan(basePackages = "com.xiao")
+@ComponentScan(basePackages = "com.xiao", excludeFilters = {
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = LoginUserConfig.class),
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = LoginUserInterceptor.class)
+})
 public class ZuulApplication {
     public static void main(String[] args) {
         SpringApplication.run(ZuulApplication.class, args);

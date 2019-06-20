@@ -6,7 +6,7 @@ import com.xiao.common.response.BaseListResponse;
 import com.xiao.common.response.BaseResponse;
 import com.xiao.dao.entity.RoleInfo;
 import com.xiao.domain.usercenter.request.RoleSearchRequest;
-import com.xiao.domain.usercenter.response.RoleBaseInfo;
+import com.xiao.common.model.RoleBaseInfo;
 import com.xiao.usercenter.service.IRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,10 +1,12 @@
 package com.xiao.zuul.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.xiao.common.model.LoginFrom;
+import com.xiao.common.model.LoginUser;
+import com.xiao.common.model.RoleBaseInfo;
+import com.xiao.common.response.BaseResponse;
 import com.xiao.redis.RedisService;
 import com.xiao.zuul.config.JwtConfig;
-import com.xiao.zuul.domain.LoginFrom;
-import com.xiao.zuul.domain.LoginUser;
-import com.xiao.zuul.domain.ResponseBase;
 import com.xiao.zuul.service.IUserService;
 import com.xiao.zuul.util.JwtUtils;
 import io.jsonwebtoken.Claims;
@@ -33,16 +35,16 @@ public class LoginController {
     private RedisService redisService;
 
     @PostMapping("/login")
-    public ResponseBase login(@RequestBody LoginFrom loginFrom, HttpServletResponse response) {
+    public BaseResponse login(@RequestBody LoginFrom loginFrom, HttpServletResponse response) {
 
         String username = loginFrom.getUsername();
         String password = loginFrom.getPassword();
         if (username == null || password == null) {
-            return new ResponseBase().fail("用户名，密码不能为空");
+            return new BaseResponse().fail("用户名，密码不能为空");
         }
         LoginUser user = userService.getUserInfo(loginFrom);
         if (user == null) {
-            return new ResponseBase().fail("用户名/密码错误");
+            return new BaseResponse().fail("用户名/密码错误");
         }
         int userid = user.getUserid();
         //获取当前登录人的信息 ，如果当前登录人在黑名单中，移除
@@ -50,11 +52,11 @@ public class LoginController {
             redisService.del("logout_" + userid);
             log.info("移除黑名单:" + userid);
         }
-        List<Integer> roles = user.getRoles();
+        List<RoleBaseInfo> roles = user.getRoles();
         Map<String, Object> map = new HashMap<>();
         map.put("username", user.getUsername());
         map.put("userid", userid);
-        map.put("roles", roles);
+        map.put("roles", JSONObject.toJSONString(roles));
         // 2 生成jwt
         String jwt = JwtUtils.createJWT(map, JwtConfig.JWT_TTL);
         // 3 cookie设置默认角色
@@ -64,21 +66,21 @@ public class LoginController {
         current_role.setMaxAge(60);
         if (roles != null && roles.size() > 0) {
             // 取第一个角色
-            current_role.setValue(String.valueOf(roles.get(0)));
+            current_role.setValue(roles.get(0).getRoleid() + "");
         } else {
             // 如果没有角色，设置一个默认角色
-            current_role.setValue("100");
+            current_role.setValue("10");
         }
         response.addCookie(current_role);
         response.setHeader("Authorization", jwt);
-        return new ResponseBase().success("登录成功");
+        return new BaseResponse().success("登录成功");
     }
 
     @GetMapping("/logout")
-    public ResponseBase logout(HttpServletRequest request, HttpServletResponse response) {
+    public BaseResponse logout(HttpServletRequest request, HttpServletResponse response) {
         Claims claims = JwtUtils.JWTDecode(request.getHeader("Authorization"));
         if (claims == null) {
-            return new ResponseBase().fail("用户未登录，或签名已失效");
+            return new BaseResponse().fail("用户未登录，或签名已失效");
         } else {
             int userid = (int) claims.get("userid");
             long ttl = claims.getExpiration().getTime();
@@ -88,7 +90,7 @@ public class LoginController {
                 redisService.set("logout_" + userid, userid, ttl - now);
             }
             response.reset();
-            return new ResponseBase().success("退出登录成功");
+            return new BaseResponse().success("退出登录成功");
         }
     }
 }

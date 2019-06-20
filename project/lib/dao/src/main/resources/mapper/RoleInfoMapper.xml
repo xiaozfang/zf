@@ -116,7 +116,7 @@
   </update>
 
   <!--—————————————————————————————以下为新增方法——————————————————————————————————-->
-  <select id="list" resultType="com.xiao.domain.usercenter.response.RoleBaseInfo">
+  <select id="list" resultType="com.xiao.common.model.RoleBaseInfo">
     select roleid, rolename
     from role_info where deleted = 0
     <if test="request.roleid > 0">

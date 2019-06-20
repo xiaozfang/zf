@@ -1,4 +1,4 @@
-package com.xiao.zuul.domain;
+package com.xiao.common.model;
 
 import lombok.Data;
 

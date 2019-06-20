@@ -1,18 +1,17 @@
 package com.xiao.usercenter.service.impl;
 
 import com.xiao.common.model.LoginUser;
+import com.xiao.common.model.RoleBaseInfo;
 import com.xiao.common.response.BaseDataResponse;
 import com.xiao.common.response.BaseResponse;
 import com.xiao.dao.entity.UserInfo;
 import com.xiao.dao.mapper.UserInfoMapper;
 import com.xiao.dao.mapper.UserRoleInfoMapper;
-import com.xiao.domain.usercenter.response.RoleBaseInfo;
 import com.xiao.usercenter.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -60,12 +59,7 @@ public class UserServiceImpl implements IUserService {
         if (user == null) {
             return null;
         }
-        List<Integer> roles = new ArrayList<>();
-
-        List<RoleBaseInfo> roleBaseInfos =  userRoleInfoMapper.selectRolesByUserId(user.getUserid());
-        if (roleBaseInfos != null){
-            roleBaseInfos.forEach(p->roles.add(p.getRoleid()));
-        }
+        List<RoleBaseInfo> roles =  userRoleInfoMapper.selectRolesByUserId(user.getUserid());
         loginUser.setUserid(user.getUserid());
         loginUser.setUsername(user.getLastname());
         loginUser.setRoles(roles);

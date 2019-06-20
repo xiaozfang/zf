@@ -9,7 +9,7 @@ public class LoginUser {
     private int userid;
     private String username;
 
-    private List<Integer> roles;
+    private List<RoleBaseInfo> roles;
     private int currentrole;
 
     public boolean checkRole(){

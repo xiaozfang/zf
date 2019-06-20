@@ -3,7 +3,7 @@ package com.xiao.dao.mapper;
 import com.xiao.common.response.BaseListResponse;
 import com.xiao.dao.entity.RoleInfo;
 import com.xiao.domain.usercenter.request.RoleSearchRequest;
-import com.xiao.domain.usercenter.response.RoleBaseInfo;
+import com.xiao.common.model.RoleBaseInfo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
