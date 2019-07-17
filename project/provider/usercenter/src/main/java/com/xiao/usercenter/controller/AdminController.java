@@ -65,8 +65,6 @@ public class AdminController {
         if (!user.haveAdminPermission()){
             return new BaseResponse().fail("你没有此接口的使用权限");
         }
-        // todo 当作废了一个角色时，怎么实现禁用正在使用该角色的人
-        //
         return roleService.changeRoleStatus(roleid, status);
     }
 

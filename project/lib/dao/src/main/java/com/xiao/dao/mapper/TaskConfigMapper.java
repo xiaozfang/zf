@@ -3,7 +3,9 @@ package com.xiao.dao.mapper;
 import com.xiao.dao.entity.TaskConfig;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TaskConfigMapper {
     int deleteByPrimaryKey(Integer id);
 

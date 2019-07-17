@@ -44,9 +44,9 @@ public class UserController {
 
     @GetMapping("/test")
     @ApiOperation("用户测试接口")
-    public BaseDataResponse<UserInfo> getUserFromTest() {
+    public BaseDataResponse<UserInfo> test() {
         log.info(LoginUserContext.getLoginUser().getUsername());
-        return userService.getUserInfo(0);
+        return userService.test();
     }
 
     @GetMapping("/getRoles")

@@ -5,6 +5,7 @@ import com.xiao.common.model.RoleBaseInfo;
 import com.xiao.common.response.BaseDataResponse;
 import com.xiao.common.response.BaseResponse;
 import com.xiao.dao.entity.UserInfo;
+import com.xiao.dao.mapper.CommonSqlMapper;
 import com.xiao.dao.mapper.UserInfoMapper;
 import com.xiao.dao.mapper.UserRoleInfoMapper;
 import com.xiao.usercenter.service.IUserService;
@@ -22,6 +23,8 @@ public class UserServiceImpl implements IUserService {
     private UserInfoMapper userInfoMapper;
     @Autowired
     private UserRoleInfoMapper userRoleInfoMapper;
+    @Autowired
+    private CommonSqlMapper<UserInfo> commonSqlMapper;
 
 
     @Override
@@ -59,10 +62,18 @@ public class UserServiceImpl implements IUserService {
         if (user == null) {
             return null;
         }
-        List<RoleBaseInfo> roles =  userRoleInfoMapper.selectRolesByUserId(user.getUserid());
+        List<RoleBaseInfo> roles = userRoleInfoMapper.selectRolesByUserId(user.getUserid());
         loginUser.setUserid(user.getUserid());
         loginUser.setUsername(user.getLastname());
         loginUser.setRoles(roles);
         return loginUser;
+    }
+
+    @Override
+    public BaseDataResponse<UserInfo> test() {
+        String sql = "select * from user_info";
+        log.info(commonSqlMapper.selectOne(sql) +"");
+
+        return null;
     }
 }

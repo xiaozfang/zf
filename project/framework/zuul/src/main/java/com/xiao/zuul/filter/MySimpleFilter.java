@@ -85,7 +85,6 @@ public class MySimpleFilter extends ZuulFilter {
                             }
                         }
                         //  当一个角色被作废时，禁用拥有该角色JWT
-                        log.info(redisService.get("del_role_list") + "");
                         List<Integer> delRoles = (List<Integer>) redisService.get("del_role_list");
                         if (delRoles != null && delRoles.size() > 0) {
                             boolean isChange = false;
