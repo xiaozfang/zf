@@ -18,6 +18,7 @@
         <module>oauth2</module>
         <module>provider</module>
         <module>scheduled</module>
+        <module>rabbitmq</module>
     </modules>
     <dependencies>
         <dependency>

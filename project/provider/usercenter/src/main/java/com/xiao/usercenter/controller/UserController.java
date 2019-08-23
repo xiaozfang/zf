@@ -2,10 +2,10 @@ package com.xiao.usercenter.controller;
 
 import com.xiao.common.context.LoginUserContext;
 import com.xiao.common.model.LoginUser;
+import com.xiao.common.model.RoleBaseInfo;
 import com.xiao.common.response.BaseDataResponse;
 import com.xiao.common.response.BaseListResponse;
 import com.xiao.dao.entity.UserInfo;
-import com.xiao.common.model.RoleBaseInfo;
 import com.xiao.usercenter.service.IRoleService;
 import com.xiao.usercenter.service.IUserService;
 import io.swagger.annotations.Api;
@@ -45,7 +45,7 @@ public class UserController {
     @GetMapping("/test")
     @ApiOperation("用户测试接口")
     public BaseDataResponse<UserInfo> test() {
-        log.info(LoginUserContext.getLoginUser().getUsername());
+//        log.info(LoginUserContext.getLoginUser().getUsername());
         return userService.test();
     }
 

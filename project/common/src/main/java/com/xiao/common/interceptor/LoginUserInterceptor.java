@@ -19,9 +19,9 @@ public class LoginUserInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
 
-        log.info("context: " + request.getContextPath());
-        log.info("url: " + request.getRequestURI());
-        log.info("servletPath: " + request.getServletPath());
+//        log.info("context: " + request.getContextPath());
+//        log.info("url: " + request.getRequestURI());
+//        log.info("servletPath: " + request.getServletPath());
         String servletPath = request.getServletPath();
         // 登录/注册接口没有用户信息
         if ("/api/user/login".equals(servletPath) || "/api/user/register".equals(servletPath)){

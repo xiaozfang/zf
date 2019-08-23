@@ -5,11 +5,11 @@ import com.xiao.common.model.RoleBaseInfo;
 import com.xiao.common.response.BaseDataResponse;
 import com.xiao.common.response.BaseResponse;
 import com.xiao.dao.entity.UserInfo;
-import com.xiao.dao.mapper.CommonSqlMapper;
 import com.xiao.dao.mapper.UserInfoMapper;
 import com.xiao.dao.mapper.UserRoleInfoMapper;
 import com.xiao.usercenter.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserRoleInfoMapper userRoleInfoMapper;
     @Autowired
-    private CommonSqlMapper<UserInfo> commonSqlMapper;
+    private AmqpTemplate amqpTemplate;
 
 
     @Override
@@ -71,9 +71,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public BaseDataResponse<UserInfo> test() {
-        String sql = "select * from user_info";
-        log.info(commonSqlMapper.selectOne(sql) +"");
-
+        amqpTemplate.convertAndSend("hello", "1111");
+        amqpTemplate.convertAndSend("hello", " hahhahaha".getBytes());
         return null;
     }
 }

@@ -24,7 +24,23 @@ import java.util.Map;
 public class DynamicDataSourceInit {
 
     @Value("${default.dbname:first}")
-    private String DEFAULT_DB;
+    private String DEFAULT_DB_NAME;
+
+    @Value("${dbconfig:{\n" +
+            "  \"first\": {\n" +
+            "    \"url\": \"jdbc:mysql://localhost/zf?useUnicode=true&characterEncoding=utf-8&useSSL=false\",\n" +
+            "    \"driverName\": \"com.mysql.jdbc.Driver\",\n" +
+            "    \"username\": \"root\",\n" +
+            "    \"password\": \"123456\"\n" +
+            "  },\n" +
+            "  \"second\": {\n" +
+            "    \"url\": \"jdbc:mysql://localhost/test?useUnicode=true&characterEncoding=utf-8&useSSL=false\",\n" +
+            "    \"driverName\": \"com.mysql.jdbc.Driver\",\n" +
+            "    \"username\": \"root\",\n" +
+            "    \"password\": \"123456\"\n" +
+            "  }\n" +
+            "}}")
+    private String DB_CONFIG;
 
     @Bean(name = "dataSource")
     @Primary
@@ -34,17 +50,16 @@ public class DynamicDataSourceInit {
         DynamicDataSource dataSource = new DynamicDataSource();
         Map<Object, Object> targetDataSources = new HashMap<>();
 
-        String dbconfig = readDBConfig();
-        if (StringTools.isEmptyOrNull(dbconfig)) {
+        if (StringTools.isEmptyOrNull(DB_CONFIG)) {
             log.error("数据库初始化异常，请检查数据库配置文件");
             return null;
         }
-        JSONObject json = JSONObject.parseObject(dbconfig);
+        JSONObject json = JSONObject.parseObject(DB_CONFIG);
         for (Map.Entry<String, Object> entry : json.entrySet()) {
             DataSource db = buildDataSource(entry);
             // 将多个数据源放入选择器中
             targetDataSources.put(entry.getKey().toLowerCase(), db);
-            if (DEFAULT_DB.equals(entry.getKey().toLowerCase())) {
+            if (DEFAULT_DB_NAME.equals(entry.getKey().toLowerCase())) {
                 // 默认的datasource设置为dataSourceDB1
                 dataSource.setDefaultTargetDataSource(db);
                 log.info("设置默认数据源：" + entry.getKey());
