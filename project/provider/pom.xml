@@ -14,6 +14,7 @@
     <modules>
         <module>project_1</module>
         <module>usercenter</module>
+        <module>ordercenter</module>
     </modules>
 
 

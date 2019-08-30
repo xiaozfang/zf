@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: ordercenter
+  rabbitmq:
+    ####连接地址
+    host: localhost
+    ####端口号
+    port: 5672
+    ####账号
+    username: guest
+    ####密码
+    password: guest
+    ### 地址
+    ###开启消息确认机制 confirms
+    publisher-confirms: true
+    publisher-returns: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:32011/eureka/
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+server:
+  port: 32055

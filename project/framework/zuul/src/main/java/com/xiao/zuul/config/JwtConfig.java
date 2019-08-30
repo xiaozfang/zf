@@ -13,5 +13,5 @@ public class JwtConfig {
     /**
      * 过期时间
      */
-    public static final Long JWT_TTL = 60*60*1000L;
+    public static final Long JWT_TTL = 12*60*60*1000L;
 }

@@ -26,20 +26,7 @@ public class DynamicDataSourceInit {
     @Value("${default.dbname:first}")
     private String DEFAULT_DB_NAME;
 
-    @Value("${dbconfig:{\n" +
-            "  \"first\": {\n" +
-            "    \"url\": \"jdbc:mysql://localhost/zf?useUnicode=true&characterEncoding=utf-8&useSSL=false\",\n" +
-            "    \"driverName\": \"com.mysql.jdbc.Driver\",\n" +
-            "    \"username\": \"root\",\n" +
-            "    \"password\": \"123456\"\n" +
-            "  },\n" +
-            "  \"second\": {\n" +
-            "    \"url\": \"jdbc:mysql://localhost/test?useUnicode=true&characterEncoding=utf-8&useSSL=false\",\n" +
-            "    \"driverName\": \"com.mysql.jdbc.Driver\",\n" +
-            "    \"username\": \"root\",\n" +
-            "    \"password\": \"123456\"\n" +
-            "  }\n" +
-            "}}")
+    @Value("${dbconfig:null}")
     private String DB_CONFIG;
 
     @Bean(name = "dataSource")
@@ -50,9 +37,12 @@ public class DynamicDataSourceInit {
         DynamicDataSource dataSource = new DynamicDataSource();
         Map<Object, Object> targetDataSources = new HashMap<>();
 
+        if ("null".equals(DB_CONFIG)){
+            DB_CONFIG = readDBConfig();
+        }
         if (StringTools.isEmptyOrNull(DB_CONFIG)) {
             log.error("数据库初始化异常，请检查数据库配置文件");
-            return null;
+            System.exit(0);
         }
         JSONObject json = JSONObject.parseObject(DB_CONFIG);
         for (Map.Entry<String, Object> entry : json.entrySet()) {
@@ -120,7 +110,7 @@ public class DynamicDataSourceInit {
             // 意思是通过datasource.getConnontion() 取得的连接必须在removeAbandonedTimeout这么多秒内调用close()
             db.setRemoveAbandonedTimeoutMillis(180 * 1000);
         }
-        log.info("初始化数据源：" + dbconfig.getKey());
+        log.info("初始化数据源：" + dbconfig.getKey() +" " + item.getUrl());
         return db;
     }
 
