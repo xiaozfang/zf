@@ -81,7 +81,8 @@ public class OrderService{
         // 判断订单是否存在
         // 判断订单状态
         // 发布-订阅模式
-        rabbitTemplate.convertAndSend(MQConfigConstant.FANOUT_EXCHANGE,"","hekk");
+        CorrelationData correlationData = new CorrelationData(orderId);
+        rabbitTemplate.convertAndSend(MQConfigConstant.FANOUT_EXCHANGE,"","hekk", correlationData);
         return null;
     }
 

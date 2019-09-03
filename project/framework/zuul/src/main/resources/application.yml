@@ -33,3 +33,6 @@ eureka:
 #  ribbon:
 ##    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #随机规则
 #    listOfServers: http://localhost:32021/, http://localhost:32022/
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
