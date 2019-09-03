@@ -20,6 +20,7 @@ public class RabbitConfig {
 
     /**
      * 配置消息消费者多线程消费
+     * 使用: 在@RabbitListener(queues=queueName, containerFactory = pointTaskContainerFactory)
      */
     @Bean("pointTaskContainerFactory")
     public SimpleRabbitListenerContainerFactory pointTaskContainerFactory(SimpleRabbitListenerContainerFactoryConfigurer configurer, ConnectionFactory connectionFactory) {

@@ -1,6 +1,6 @@
 package com.xiao.database.config.aspect;
 
-import com.xiao.common.util.StringTools;
+import com.xiao.common.util.StringUtils;
 import com.xiao.database.config.annotation.TargetDataSource;
 import com.xiao.database.config.datasource.DataSourceTypes;
 import com.xiao.database.config.datasource.DatabaseContextHolder;
@@ -38,7 +38,7 @@ public class DataSourceAspect {
             log.info("set datasource to " + DataSourceTypes.FIRST);
         } else {
             String dbName = tds.value();
-            if (StringTools.isEmptyOrNull(dbName)){
+            if (StringUtils.isEmptyOrNull(dbName)){
                 // 设置默认数据源
                 DatabaseContextHolder.setDataSourceType(DataSourceTypes.FIRST);
             } else {

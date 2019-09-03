@@ -2,7 +2,7 @@ package com.xiao.database.config.datasource;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.fastjson.JSONObject;
-import com.xiao.common.util.StringTools;
+import com.xiao.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.mybatis.spring.annotation.MapperScan;
@@ -40,7 +40,7 @@ public class DynamicDataSourceInit {
         if ("null".equals(DB_CONFIG)){
             DB_CONFIG = readDBConfig();
         }
-        if (StringTools.isEmptyOrNull(DB_CONFIG)) {
+        if (StringUtils.isEmptyOrNull(DB_CONFIG)) {
             log.error("数据库初始化异常，请检查数据库配置文件");
             System.exit(0);
         }
