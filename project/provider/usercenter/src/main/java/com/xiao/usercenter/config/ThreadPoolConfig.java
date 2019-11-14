@@ -18,6 +18,7 @@ public class ThreadPoolConfig {
      * 公共连接池
      */
     @Bean("CommonPool")
+
     public Executor CommonPool() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 设置核心线程数

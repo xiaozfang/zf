@@ -11,25 +11,28 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 
 import javax.sql.DataSource;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
 @Configuration
 @MapperScan("com.xiao.dao")
+@PropertySource("classpath:application.properties")
 public class DynamicDataSourceInit {
 
-    @Value("${default.dbname:first}")
-    private String DEFAULT_DB_NAME;
+    @Value("${DEFAULT_DB}")
+    private String DEFAULT_DB;
 
-    @Value("${dbconfig:null}")
-    private String DB_CONFIG;
+    @Value("${DB_CONFIG_PATH}")
+    private String DB_CONFIG_PATH;
 
-    @Bean(name = "dataSource")
+    @Bean //默认情况下，Spring中的bean都是单例的 该bean的ID默认与方法名一致 spring会拦截所有对dataSource()方法的调用并确认返回的是Spring自己所创建的bean
     @Primary
     public DynamicDataSource dataSource() {
 
@@ -37,9 +40,7 @@ public class DynamicDataSourceInit {
         DynamicDataSource dataSource = new DynamicDataSource();
         Map<Object, Object> targetDataSources = new HashMap<>();
 
-        if ("null".equals(DB_CONFIG)){
-            DB_CONFIG = readDBConfig();
-        }
+        String DB_CONFIG = readDBConfig(DB_CONFIG_PATH);
         if (StringUtils.isEmptyOrNull(DB_CONFIG)) {
             log.error("数据库初始化异常，请检查数据库配置文件");
             System.exit(0);
@@ -49,7 +50,7 @@ public class DynamicDataSourceInit {
             DataSource db = buildDataSource(entry);
             // 将多个数据源放入选择器中
             targetDataSources.put(entry.getKey().toLowerCase(), db);
-            if (DEFAULT_DB_NAME.equals(entry.getKey().toLowerCase())) {
+            if (DEFAULT_DB.equals(entry.getKey().toLowerCase())) {
                 // 默认的datasource设置为dataSourceDB1
                 dataSource.setDefaultTargetDataSource(db);
                 log.info("设置默认数据源：" + entry.getKey());
@@ -115,10 +116,10 @@ public class DynamicDataSourceInit {
     }
 
 
-    private String readDBConfig() {
-        File file = new File("component-database/src/main/resources/db.json");
+    private String readDBConfig(String path) {
+        File file = new File(path);
         try {
-            return FileUtils.readFileToString(file,"UTf-8");
+            return FileUtils.readFileToString(file, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }

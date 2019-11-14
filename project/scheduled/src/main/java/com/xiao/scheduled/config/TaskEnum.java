@@ -5,7 +5,7 @@ public enum TaskEnum {
     private int taskId;
     private String taskName;
 
-    private TaskEnum(int taskId, String taskName) {
+    TaskEnum(int taskId, String taskName) {
         this.taskId = taskId;
         this.taskName = taskName;
     }

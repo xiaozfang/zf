@@ -19,6 +19,7 @@ public interface MQConfigConstant {
     // 直连队列
     String HELLO_MQ = "HELLO";
     String TEST_MQ = "TEST";
+    String REGISTER_USER = "REGISTER_USER";
     // FANOUT队列
     String FANOUT_MQ_1 = "FANOUT.MQ.1";
     String FANOUT_MQ_2 = "FANOUT.MQ.2";

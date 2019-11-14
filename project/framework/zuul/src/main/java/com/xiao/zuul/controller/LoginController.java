@@ -12,6 +12,7 @@ import com.xiao.zuul.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,8 @@ import java.util.Map;
 @RestController
 public class LoginController {
 
+    @Value("${test: 我是初始值}")
+    private String test;
     @Autowired
     private IUserService userService;
     @Autowired
@@ -37,6 +40,7 @@ public class LoginController {
     @PostMapping("/login")
     public BaseResponse login(@RequestBody LoginFrom loginFrom, HttpServletResponse response) {
 
+        log.info("test -->  {}", test);
         String username = loginFrom.getUsername();
         String password = loginFrom.getPassword();
         if (username == null || password == null) {

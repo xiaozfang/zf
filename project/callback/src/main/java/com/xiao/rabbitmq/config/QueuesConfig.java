@@ -28,7 +28,10 @@ public class QueuesConfig {
     public Queue testQueue() {
         return new Queue(MQConfigConstant.TEST_MQ);
     }
-
+    @Bean
+    public Queue registerUser() {
+        return new Queue(MQConfigConstant.REGISTER_USER);
+    }
     // 广播模式队列
 
     @Bean

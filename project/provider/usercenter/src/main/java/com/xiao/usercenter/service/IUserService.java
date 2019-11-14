@@ -19,4 +19,6 @@ public interface IUserService {
     LoginUser login(String username, String password);
 
     BaseDataResponse<UserInfo> test();
+
+    BaseResponse register(String username);
 }

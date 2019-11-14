@@ -39,7 +39,7 @@ public class UserServiceImpl implements IUserService{
     @Override
     public BaseResponse addUser(UserInfo user) {
         userInfoMapper.insertSelective(user);
-        return null;
+        return new BaseResponse().success("创建成功");
     }
 
     @Override
@@ -72,5 +72,16 @@ public class UserServiceImpl implements IUserService{
     @Override
     public BaseDataResponse<UserInfo> test() {
         return null;
+    }
+
+    @Override
+    public BaseResponse register(String username) {
+        UserInfo user = new UserInfo();
+        user.setUserid(Integer.valueOf(username.replace("用户", "")));
+        user.setUsername(username);
+        user.setEmail(username +"@email.com");
+        user.setPassword("111111");
+        userInfoMapper.insertSelective(user);
+        return new BaseResponse().success("创建成功");
     }
 }

@@ -1,7 +1,16 @@
+### apollo 配置
+app.id: spring-cloud-zuul
+# set apollo meta server address, adjust to actual address if necessary
+apollo.meta: http://localhost:8080
+
 spring:
   application:
-    name: api-gateway
-
+    name: spring-cloud-zuul
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 server:
   port: 32001
@@ -36,3 +45,5 @@ eureka:
 ribbon:
   ReadTimeout: 10000
   ConnectTimeout: 10000
+
+

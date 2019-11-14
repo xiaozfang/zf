@@ -14,6 +14,7 @@
     <modules>
         <module>eureka</module>
         <module>zuul</module>
+        <module>apollo</module>
     </modules>
 
     <build>

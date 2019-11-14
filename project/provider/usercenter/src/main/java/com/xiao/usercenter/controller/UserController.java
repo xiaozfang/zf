@@ -5,6 +5,7 @@ import com.xiao.common.model.LoginUser;
 import com.xiao.common.model.RoleBaseInfo;
 import com.xiao.common.response.BaseDataResponse;
 import com.xiao.common.response.BaseListResponse;
+import com.xiao.common.response.BaseResponse;
 import com.xiao.dao.entity.UserInfo;
 import com.xiao.usercenter.service.IRoleService;
 import com.xiao.usercenter.service.IUserService;
@@ -40,6 +41,12 @@ public class UserController {
     @ApiOperation(value = "用户登录", hidden = true)
     public LoginUser login(@RequestParam("username") String username, @RequestParam("password") String password) {
         return userService.login(username, password);
+    }
+
+    @GetMapping("/register")
+    @ApiOperation(value = "用户注册", hidden = true)
+    public BaseResponse login(@RequestParam("username") String username) {
+        return userService.register(username);
     }
 
     @GetMapping("/test")

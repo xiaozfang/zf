@@ -22,6 +22,15 @@ import java.lang.reflect.Method;
 @Component
 public class DataSourceAspect {
 
+    /**
+     * 前置通知(Before) 在目标方法之前执行
+     * 后置通知(After) 在目标方法之后执行,此时不会关心方法的输出是什么
+     * 返回通知(After-returning) 在方法成功执行后执行
+     * 异常通知(After-throwing) 在方法抛出异常后执行
+     * 环绕通知(Around) 在方法调用之前和调用之后执行
+     */
+
+
     @Pointcut("@annotation(com.xiao.database.config.annotation.TargetDataSource)")
     public void targetDataSourcePointCut() {
 

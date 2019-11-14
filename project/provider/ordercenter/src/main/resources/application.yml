@@ -28,4 +28,4 @@ eureka:
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
 server:
-  port: 32055
+  port: 32061

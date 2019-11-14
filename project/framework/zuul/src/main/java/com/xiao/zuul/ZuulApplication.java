@@ -1,5 +1,6 @@
 package com.xiao.zuul;
 
+import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import com.xiao.common.config.LoginUserConfig;
 import com.xiao.common.interceptor.LoginUserInterceptor;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +18,7 @@ import org.springframework.web.filter.CorsFilter;
 @EnableCaching
 @EnableZuulProxy
 @EnableFeignClients
+@EnableApolloConfig
 @SpringCloudApplication
 @ComponentScan(basePackages = "com.xiao", excludeFilters = {
         @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = LoginUserConfig.class),
