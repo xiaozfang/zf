@@ -18,9 +18,8 @@ public class RegisterController {
     @GetMapping("/register")
     public BaseResponse register() {
         BaseResponse response = new BaseResponse();
-        for (int i = 0; i < 5000; i++) {
+        for (int i = 0; i < 10; i++) {
             response = userService.register("用户" + i);
-            log.info("用户" + i + " " + response.getMessage());
         }
         return response;
     }

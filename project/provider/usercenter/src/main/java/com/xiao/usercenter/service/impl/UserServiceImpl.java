@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -76,6 +77,8 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public BaseResponse register(String username) {
+        String version1 = "1.12.2";
+        int[] v1 = Arrays.stream(version1.split("\\.")).mapToInt(Integer::parseInt).toArray();
         UserInfo user = new UserInfo();
         user.setUserid(Integer.valueOf(username.replace("用户", "")));
         user.setUsername(username);
@@ -84,4 +87,5 @@ public class UserServiceImpl implements IUserService{
         userInfoMapper.insertSelective(user);
         return new BaseResponse().success("创建成功");
     }
+
 }
