@@ -1,6 +1,6 @@
 package com.xiao.rabbitmq.feign;
 
-import com.xiao.common.model.LoginUser;
+import com.xiao.common.response.BaseResponse;
 import com.xiao.rabbitmq.feign.fallback.CommonFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "usercenter", fallback = CommonFallBack.class, decode404 = true)
 public interface RegisterService {
     /**
-     * 用户登录接口
+     * 注册登录接口
      */
     @GetMapping(value = "/api/user/register")
-    LoginUser register(@RequestParam("username") String username);
+    BaseResponse register(@RequestParam("username") String username);
 }

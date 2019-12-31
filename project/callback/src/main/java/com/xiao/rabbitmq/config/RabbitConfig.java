@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainer
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.retry.support.RetryTemplate;
 
 @Configuration
 public class RabbitConfig {
@@ -47,7 +48,9 @@ public class RabbitConfig {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
 //        factory.setMessageConverter(new Jackson2JsonMessageConverter());
+        // 手动确认消息被消费成功
         factory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
+        factory.setRetryTemplate(new RetryTemplate());
         return factory;
     }
 }

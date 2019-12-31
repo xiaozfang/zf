@@ -2,6 +2,7 @@ package com.xiao.rabbitmq.service;
 
 import com.rabbitmq.client.Channel;
 import com.xiao.common.constant.MQConfigConstant;
+import com.xiao.common.response.BaseResponse;
 import com.xiao.rabbitmq.feign.RegisterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -20,15 +21,17 @@ public class RegisterReceiver {
         log.info("收到消息:{}", userName);
         final long deliveryTag = message.getMessageProperties().getDeliveryTag();
         try {
-            if (!userName.contains("7")) {
-                registerService.register(userName);
+            BaseResponse response = registerService.register(userName);
+            if (response.getCode() == 1){
                 channel.basicAck(deliveryTag, false);
             } else {
-                channel.basicNack(deliveryTag, false, true);
-                throw new RuntimeException("错误类型的客户" + userName);
+                channel.basicReject(deliveryTag, false);
+                throw new Exception(response.getMessage());
             }
+
         } catch (Exception e) {
             log.error("队列处理时发生异常:{}", e.getMessage());
+            // 记录处理失败的消息到数据库
         }
     }
 }

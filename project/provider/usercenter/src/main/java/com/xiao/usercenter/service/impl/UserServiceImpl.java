@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -77,8 +76,10 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public BaseResponse register(String username) {
-        String version1 = "1.12.2";
-        int[] v1 = Arrays.stream(version1.split("\\.")).mapToInt(Integer::parseInt).toArray();
+        if(username.contains("7")){
+//            throw new CreateUserException("创建客户失败[错误的客户类型:" + username+"]");
+            return new BaseResponse().fail("错误的客户类型:" + username);
+        }
         UserInfo user = new UserInfo();
         user.setUserid(Integer.valueOf(username.replace("用户", "")));
         user.setUsername(username);

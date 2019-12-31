@@ -30,19 +30,19 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public BaseResponse register(String userName) {
-        CorrelationData data = new CorrelationData(userName+"Ss");
-        if (userName.contains("8")){
+        CorrelationData data = new CorrelationData(userName + "Ss");
+        if (userName.contains("8")) {
 //            rabbitTemplate.convertAndSend(MQConfigConstant.HELLO_MQ, (Object) userName, data);
-            rabbitTemplate.convertAndSend("MQConfigConstant.REGISTER_USER", (Object) userName);
+            rabbitTemplate.convertAndSend("MQConfigConstant.REGISTER_USER", userName);
 
         } else {
-            rabbitTemplate.convertAndSend(MQConfigConstant.REGISTER_USER, (Object) userName, data);
+            rabbitTemplate.convertAndSend(MQConfigConstant.REGISTER_USER, userName);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            log.info(userName +"创建成功");
+            log.info(userName + "创建成功");
         }
 
         return new BaseResponse().success("创建成功");
